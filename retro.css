@@ -1,5 +1,21 @@
 /* Pixel desktop sampled from the supplied video-window reference. */
+@font-face {
+    font-family: "Fusion Pixel";
+    src: url("src/fonts/fusion-pixel/fusion-pixel-12px-proportional-zh_hans.otf.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Fusion Pixel Mono";
+    src: url("src/fonts/fusion-pixel/fusion-pixel-12px-monospaced-zh_hans.otf.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
 :root {
+    --pixel-font: "Fusion Pixel", "Microsoft YaHei", sans-serif;
+    --pixel-mono: "Fusion Pixel Mono", monospace;
     --bg: #fff8ff;
     --text: #33254f;
     --body-text: #443258;
@@ -23,7 +39,8 @@
     --window-shadow: 4px 4px 0 #acecff, 6px 6px 0 #5d35d2;
 }
 
-body { font-family: Tahoma, "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+body, button, input, textarea, select { font-family: var(--pixel-font); }
+body { font-size: 18px; font-synthesis: none; }
 ::selection { background: #c9b0e4; color: #292139; }
 button, input, a { -webkit-tap-highlight-color: rgba(164, 119, 191, 0.16); }
 a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
@@ -51,6 +68,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 /* A real title strip on each main window; no non-functional window buttons. */
 .glass-panel, .game-journal {
     position: relative;
+    isolation: isolate;
     border: 2px solid #5d35d2;
     border-radius: 0;
     background: #fff8ff;
@@ -58,10 +76,46 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
-.glass-panel::before, .glass-panel::after,
 .blog-card::before, .blog-card::after, .album-card::before, .album-card::after,
 .contact-card::before, .contact-card::after { display: none; }
-.hero-panel, .section-panel, .content-panel, .resume-panel, .contact-panel, .detail-shell, .game-journal { padding-top: 62px; }
+.hero-panel, .section-panel, .content-panel, .resume-panel, .contact-panel, .detail-shell, .game-journal { padding-top: 72px; padding-bottom: 36px; }
+/* Separate the title strip, inset content pane and bottom window rail. */
+.glass-panel::before, .game-journal::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 48px 7px 21px;
+    z-index: -1;
+    border: 1px solid #7548ce;
+    border-radius: 0;
+    background: none;
+    box-shadow: inset 1px 1px #fff8ff;
+    opacity: 1;
+    transform: none;
+    animation: none;
+    pointer-events: none;
+}
+.glass-panel::after, .game-journal::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: auto 7px 7px;
+    height: 8px;
+    z-index: -1;
+    border: 1px solid #7548ce;
+    border-radius: 0;
+    background:
+        linear-gradient(#f2d4f2, #f2d4f2) 0 0 / 24px 100% no-repeat,
+        linear-gradient(#7548ce, #7548ce) 24px 0 / 1px 100% no-repeat,
+        repeating-linear-gradient(90deg, #7548ce 0 1px, #fff8ff 1px 4px, #7548ce 4px 5px, transparent 5px 7px) 28px 1px / 21px 4px no-repeat,
+        repeating-linear-gradient(135deg, #7548ce 0 1px, transparent 1px 3px) right 1px center / 7px 6px no-repeat,
+        #acecff;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+    animation: none;
+    pointer-events: none;
+}
 .retro-titlebar {
     position: absolute;
     top: 7px;
@@ -76,7 +130,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
     border: 2px solid #7548ce;
     background: #f2d4f2;
     color: #5131a2;
-    font: bold 0.78rem/1.2 Tahoma, "Noto Sans SC", sans-serif;
+    font: 400 12px/1.2 var(--pixel-font);
     letter-spacing: 0.02em;
     text-shadow: none;
 }
@@ -91,7 +145,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .intro-lines { gap: 0; border: 1px solid #fff; background: #fff8ff; box-shadow: var(--sunken); padding: 4px 14px; }
 .intro-lines p { border-bottom: 1px dotted #bc91e5; padding: 9px 0; font-size: 0.88rem; }
 .intro-lines p:last-child { border-bottom: 0; }
-.intro-lines p > span:first-child { font-family: "Courier New", monospace; font-weight: bold; color: #7643b5; }
+.intro-lines p > span:first-child { font-family: var(--pixel-mono); color: #7643b5; }
 .panel-head { border-bottom: 2px solid #c6a0eb; padding-bottom: 15px; }
 .panel-note { font-size: 0.73rem; }
 
@@ -150,11 +204,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .game-journal { background: #fff8ff; }
 .game-journal-masthead { color: #7040b2; border-bottom: 2px solid #ceb5ee; }
 .game-journal-header h2 { font-size: clamp(2rem, 4vw, 3.1rem); }
-.game-journal-total strong { font: bold 2.8rem/1 "Courier New", monospace; color: #8b5bd6; }
+.game-journal-total strong { font: 400 36px/1 var(--pixel-mono); color: #8b5bd6; }
 .game-ledger-head { border: 1px solid #7548ce; padding: 10px; background: #f2d4f2; box-shadow: var(--raised); }
 .game-review-row { padding: 22px 10px; border-bottom: 1px dotted #c6a0eb; }
 .game-review-row:hover { background: #edf7ff; }
-.game-review-score strong { font-family: "Courier New", monospace; font-style: normal; font-weight: bold; }
+.game-review-score strong { font-family: var(--pixel-mono); font-style: normal; font-weight: 400; }
 .game-detail-header .game-review-score strong { font-size: 2.8rem; }
 .game-review-status { display: inline-block; background: #e7f9ff; color: #4b3a9b; border: 1px solid #99c9ef; padding: 2px 7px; }
 .game-detail-body { padding: 24px; max-width: 82ch; background: #fff8ff; box-shadow: var(--sunken); }
@@ -168,10 +222,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .markdown-body pre { border: 1px solid #b590df; border-radius: 0; background: #f8efff; box-shadow: inset 1px 1px #fff; }
 .markdown-body code { border-radius: 0; }
 .markdown-body img { border-radius: 0; }
-.detail-date { font-family: "Courier New", monospace; }
+.detail-date { font-family: var(--pixel-mono); }
 
 /* Photo viewer: short text is centered; a long body shrinks into a scroll pane. */
-.modal-window { padding: 54px 20px 20px; border-radius: 0; background: #fff8ff; }
+.modal-window { padding: 60px 20px 34px; border-radius: 0; background: #fff8ff; }
 .modal-window .retro-titlebar { padding-right: 46px; }
 .modal-close { top: 10px; right: 10px; width: 26px; height: 26px; min-height: 0; font: bold 1.35rem/1 monospace; padding: 0; }
 .modal-media { border-radius: 0; border: 1px solid #7548ce; background: #fff8ff; box-shadow: var(--sunken); }
@@ -191,6 +245,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .image-fullscreen-backdrop { background: rgba(239, 230, 246, 0.97); }
 .image-fullscreen img { box-shadow: 4px 4px #acecff; border-radius: 0; }
 
+/* Keep the bitmap shapes throughout the UI, including dates, scores and code. */
+h1, h2, h3, h4, strong, .section-kicker, .panel-kicker, .info-label,
+.site-nav a, .desktop-brand, .category-chip, .game-detail-back { font-weight: 400; }
+.desktop-brand, .site-nav a, .category-chip, .mini-tags span, .detail-pills span,
+.direction-badge, .section-kicker, .panel-kicker, .info-label, .detail-date,
+.game-review-status, .game-review-meta, .panel-note, .game-journal-footer,
+.game-journal-masthead { font-size: 12px; letter-spacing: 0; }
+.hero-copy h1 { font-size: 48px; }
+.hero-lead, .section-copy, .game-detail-body, .markdown-body { font-size: 18px; }
+.panel-head h2, .panel-head h3, .section-panel h2, .resume-panel h2,
+.contact-copy h2, .modal-content h3 { font-size: 24px; line-height: 1.5; }
+.detail-header h1, .game-detail-header h1, .game-journal-header h2 { font-size: 36px; }
+.blog-card h4, .album-card-title, .game-review-identity h3 { font-size: 20px; line-height: 1.6; }
+.blog-summary, .album-summary, .game-review-copy, .intro-lines p, .cv-summary { font-size: 16px; line-height: 1.9; }
+.markdown-body p, .markdown-body li, .game-detail-body { line-height: 1.95; }
+.markdown-body pre, .markdown-body code { font-family: var(--pixel-mono); font-size: 16px; line-height: 1.8; }
+.markdown-body h2 { font-size: 24px; }
+.markdown-body h3 { font-size: 20px; }
+
 /* Square scrollbars finish the desktop chrome. */
 * { scrollbar-color: #c49ae9 #f2e4ff; scrollbar-width: thin; }
 ::-webkit-scrollbar { width: 12px; height: 12px; }
@@ -207,17 +280,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
     .site-nav { top: 6px; width: calc(100vw - 12px); padding: 5px; gap: 4px; }
     .site-nav a { min-height: 36px; padding: 0 11px; font-size: 0.77rem; }
     .page-section { padding-top: 65px; }
-    .hero-panel, .section-panel, .content-panel, .resume-panel, .contact-panel, .detail-shell, .game-journal { padding: 52px 18px 20px; }
-    .retro-titlebar { height: 29px; font-size: 0.7rem; padding: 0 7px; }
+    .hero-panel, .section-panel, .content-panel, .resume-panel, .contact-panel, .detail-shell, .game-journal { padding: 60px 18px 32px; }
+    .retro-titlebar { height: 29px; font-size: 12px; padding: 0 7px; }
     .retro-titlebar > :last-child:not(:first-child) { display: none; }
     .avatar-shell { width: min(200px, 60vw); }
     .hero-panel { gap: 24px; }
-    .hero-copy h1 { font-size: 2.6rem; }
+    .hero-copy h1 { font-size: 36px; }
     .intro-lines { padding: 3px 10px; }
     .intro-lines p { gap: 6px; font-size: 0.82rem; }
+    .intro-lines p > span:first-child { flex-basis: 44px; }
     .game-detail-body, .detail-markdown { padding: 18px 14px; font-size: 0.95rem; }
     .game-journal-footer { gap: 12px; }
-    .modal-window { padding: 54px 12px 14px; gap: 12px; }
+    .modal-window { padding: 60px 12px 30px; gap: 12px; }
+    .modal-window::before { top: 51px; }
     .modal-window .retro-titlebar { height: 34px; padding-right: 42px; }
     .modal-close { width: 28px; height: 28px; }
     .modal-content { padding: 16px 10px; gap: 12px; }
@@ -227,4 +302,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
     .album-image-prev { left: 8px; }
     .album-image-next { right: 8px; }
     .album-image-counter { bottom: 8px; }
+    .site-nav a { font-size: 12px; }
+    .hero-lead, .intro-lines p, .game-detail-body, .detail-markdown { font-size: 16px; }
+    .detail-header h1, .game-detail-header h1, .game-journal-header h2 { font-size: 24px; }
 }
