@@ -397,7 +397,7 @@ async function updateAssetVersions(version) {
             const metadata = `<!-- site-meta:start -->
     <title>${xmlEscape(title)}</title>
     <meta name="description" content="${xmlEscape(siteConfig.description)}">
-    <meta name="theme-color" content="#fff9fb">
+    <meta name="theme-color" content="#e5d9f1">
     <meta property="og:type" content="${isHome ? "website" : "article"}">
     <meta property="og:site_name" content="${xmlEscape(siteTitle)}">
     <meta property="og:title" content="${xmlEscape(title)}">
@@ -410,6 +410,7 @@ async function updateAssetVersions(version) {
                 .replace(/<!-- site-meta:start -->[\s\S]*?<!-- site-meta:end -->/, metadata)
                 .replace(/(href="style\.css)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
                 .replace(/(href="theme\.css)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
+                .replace(/(href="retro\.css)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
                 .replace(/(src="site-config\.js)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
                 .replace(/(src="content-manifest\.js)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
                 .replace(/(src="script\.js)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`);

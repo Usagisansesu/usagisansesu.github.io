@@ -6,7 +6,7 @@
     <!-- site-meta:start -->
     <title>うさうさ</title>
     <meta name="description" content="うさうさ 的个人博客，分享 meta-GGA 量子化学优化与 Unity 引擎的技术文章、游戏短评和生活随笔。">
-    <meta name="theme-color" content="#fff9fb">
+    <meta name="theme-color" content="#e5d9f1">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="うさうさ">
     <meta property="og:title" content="うさうさ">
@@ -21,8 +21,9 @@
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap"
         rel="stylesheet"
     >
-    <link rel="stylesheet" href="style.css?v=20261027133152">
-    <link rel="stylesheet" href="theme.css?v=20261027133152">
+    <link rel="stylesheet" href="style.css?v=20261027134613">
+    <link rel="stylesheet" href="theme.css?v=20261027134613">
+    <link rel="stylesheet" href="retro.css?v=20261027134613">
 </head>
 <body data-page="home">
     <div class="site-background" id="site-background" aria-hidden="true" hidden>
@@ -30,6 +31,7 @@
     </div>
     <button class="background-toggle" id="background-toggle" type="button" aria-label="动态背景" aria-pressed="false" hidden>播放背景</button>
     <nav class="site-nav" aria-label="站点导航">
+        <span class="desktop-brand" aria-hidden="true">うさうさ DESKTOP</span>
         <a href="#intro" data-scroll>简介</a>
         <a href="#blogs" data-scroll>技术文章</a>
         <a href="#games" data-scroll>游戏短评</a>
@@ -42,6 +44,7 @@
         <section class="page-section intro-section" id="intro">
             <div class="container">
                 <div class="glass-panel hero-panel reveal">
+                    <div class="retro-titlebar"><span>profile.exe — うさうさ</span><span aria-hidden="true">PERSONAL WEB</span></div>
                     <div class="avatar-column">
                         <div class="avatar-shell">
                             <img src="./src/pictures/usausa-v2.png" alt="うさうさ 的头像" data-profile-avatar>
@@ -67,6 +70,7 @@
         <section class="page-section" id="blogs">
             <div class="container blog-layout">
                 <div class="glass-panel content-panel reveal">
+                    <div class="retro-titlebar"><span>notebook.exe — 技术文章</span><span aria-hidden="true">NOTES</span></div>
                     <div class="panel-head">
                         <div>
                             <p class="panel-kicker">TECHNICAL WRITING</p>
@@ -89,6 +93,7 @@
         <section class="page-section games-section" id="games" aria-labelledby="games-title">
             <div class="container">
                 <div class="game-journal reveal">
+                    <div class="retro-titlebar"><span>games.exe — 游戏短评</span><span aria-hidden="true">PLAYER LOG</span></div>
                     <div class="game-journal-masthead">
                         <span>GAME NOTES</span>
                         <span>玩过之后，留下一点感受</span>
@@ -127,12 +132,14 @@
         <section class="page-section" id="album">
             <div class="container split-layout album-layout">
                 <div class="glass-panel section-panel reveal">
+                    <div class="retro-titlebar"><span>日常の記録</span><span aria-hidden="true">LIFE</span></div>
                     <p class="section-kicker">PHOTO ESSAYS</p>
                     <h2>生活随笔</h2>
                     <p class="section-copy">记录日常的片刻，也给技术之外的生活留一点空间。</p>
                 </div>
 
                 <div class="glass-panel content-panel reveal">
+                    <div class="retro-titlebar"><span>photos.exe — 生活片段</span><span aria-hidden="true">ALBUM</span></div>
                     <div class="panel-head">
                         <div>
                             <p class="panel-kicker">Life Frames</p>
@@ -150,6 +157,7 @@
         <section class="page-section" id="resume" aria-labelledby="resume-title">
             <div class="container">
                 <div class="glass-panel resume-panel reveal">
+                    <div class="retro-titlebar"><span>resume.txt — 个人简历</span><span aria-hidden="true">ABOUT ME</span></div>
                     <div class="resume-title-row">
                         <div>
                             <p class="section-kicker">PERSONAL RESUME</p>
@@ -210,6 +218,7 @@
         <section class="page-section contact-section" id="contact">
             <div class="container">
                 <div class="glass-panel contact-panel reveal">
+                    <div class="retro-titlebar"><span>contacts.ini — 保持联系</span><span aria-hidden="true">ADDRESS BOOK</span></div>
                     <div class="contact-copy">
                         <p class="section-kicker">KEEP IN TOUCH</p>
                         <h2>保持联系</h2>
@@ -231,6 +240,7 @@
         <button class="modal-nav modal-nav-prev" type="button" aria-label="查看上一条随笔" data-album-nav="prev">‹</button>
         <button class="modal-nav modal-nav-next" type="button" aria-label="查看下一条随笔" data-album-nav="next">›</button>
         <div class="glass-panel modal-window" role="dialog" aria-modal="true" aria-labelledby="album-modal-title">
+            <div class="retro-titlebar"><span>Photo Viewer — 生活随笔</span></div>
             <button class="modal-close" type="button" aria-label="关闭" data-close-album>×</button>
             <div class="modal-media">
                 <img id="album-modal-image" alt="">
@@ -253,8 +263,8 @@
         <img id="image-fullscreen-img" alt="">
     </div>
 
-    <script src="site-config.js?v=20261027133152"></script>
-    <script src="content-manifest.js?v=20261027133152"></script>
-    <script src="script.js?v=20261027133152"></script>
+    <script src="site-config.js?v=20261027134613"></script>
+    <script src="content-manifest.js?v=20261027134613"></script>
+    <script src="script.js?v=20261027134613"></script>
 </body>
 </html>
