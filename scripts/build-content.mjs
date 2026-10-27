@@ -397,7 +397,7 @@ async function updateAssetVersions(version) {
             const metadata = `<!-- site-meta:start -->
     <title>${xmlEscape(title)}</title>
     <meta name="description" content="${xmlEscape(siteConfig.description)}">
-    <meta name="theme-color" content="#e5d9f1">
+    <meta name="theme-color" content="#f2d4f2">
     <meta property="og:type" content="${isHome ? "website" : "article"}">
     <meta property="og:site_name" content="${xmlEscape(siteTitle)}">
     <meta property="og:title" content="${xmlEscape(title)}">

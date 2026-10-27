@@ -834,7 +834,7 @@ function setupAlbumModal() {
             button.className = `album-image-nav album-image-${direction}`;
             button.dataset.albumImageNav = direction;
             button.setAttribute("aria-label", direction === "prev" ? "上一张图片" : "下一张图片");
-            button.textContent = direction === "prev" ? "‹" : "›";
+            button.textContent = direction === "prev" ? "◀" : "▶";
             button.hidden = true;
             media.append(button);
         });
