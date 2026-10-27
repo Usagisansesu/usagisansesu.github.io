@@ -824,7 +824,11 @@ function setupAlbumModal() {
     const title = document.getElementById("album-modal-title");
     const tags = document.getElementById("album-modal-tags");
     const markdown = document.getElementById("album-modal-markdown");
+    const imageCounter = document.getElementById("album-image-counter");
+    const imageButtons = modal.querySelectorAll("[data-album-image-nav]");
     let currentAlbumIndex = -1;
+    let currentImageIndex = 0;
+    let currentImages = [];
 
     const setModalLayout = () => {
         const ratio = image.naturalWidth / Math.max(image.naturalHeight, 1);
@@ -850,16 +854,35 @@ function setupAlbumModal() {
         }
     };
 
+    const showImage = () => {
+        const photo = currentImages[currentImageIndex];
+        if (!photo) return;
+        image.alt = photo.alt || title.textContent;
+        image.src = photo.src;
+        const multiple = currentImages.length > 1;
+        imageButtons.forEach((button) => { button.hidden = !multiple; });
+        imageCounter.hidden = !multiple;
+        imageCounter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
+    };
+
+    const switchImage = (direction) => {
+        if (modal.hidden || currentImages.length < 2) return;
+        currentImageIndex = (currentImageIndex + (direction === "next" ? 1 : -1) + currentImages.length) % currentImages.length;
+        showImage();
+    };
+
     const openModal = (item, index = manifest.album.indexOf(item)) => {
         currentAlbumIndex = index;
+        currentImageIndex = 0;
+        currentImages = item.images?.length ? item.images : [{ src: item.image, alt: item.title }];
         modalWindow.classList.remove("layout-landscape", "layout-portrait", "layout-square");
-        image.src = item.image;
-        image.alt = item.title;
         date.textContent = formatDate(item.date);
         title.textContent = item.title;
         renderTagPills(tags, item.tags);
-        markdown.innerHTML = renderMarkdown(item.markdown);
+        markdown.innerHTML = item.markdown?.trim() ? renderMarkdown(item.markdown) : "";
         markdown.scrollTop = 0;
+        showImage();
+        modal.querySelectorAll("[data-album-nav]").forEach((button) => { button.hidden = manifest.album.length < 2; });
         modal.hidden = false;
         if (pageStack) {
             pageStack.style.overflow = "hidden";
@@ -880,7 +903,14 @@ function setupAlbumModal() {
         openModal(manifest.album[nextIndex], nextIndex);
     };
 
-    image.addEventListener("load", setModalLayout);
+    image.addEventListener("load", () => {
+        // Retain the same panel proportions when browsing differently shaped photos.
+        if (currentImageIndex === 0) setModalLayout();
+    });
+
+    imageButtons.forEach((button) => {
+        button.addEventListener("click", () => switchImage(button.dataset.albumImageNav));
+    });
 
     albumList.addEventListener("click", (event) => {
         const trigger = event.target.closest("[data-album-slug]");
@@ -914,11 +944,13 @@ function setupAlbumModal() {
         }
 
         if (event.key === "ArrowLeft") {
-            switchAlbum("prev");
+            if (!modal.hidden) event.preventDefault();
+            currentImages.length > 1 ? switchImage("prev") : switchAlbum("prev");
         }
 
         if (event.key === "ArrowRight") {
-            switchAlbum("next");
+            if (!modal.hidden) event.preventDefault();
+            currentImages.length > 1 ? switchImage("next") : switchAlbum("next");
         }
     });
 }

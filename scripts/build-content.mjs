@@ -190,11 +190,11 @@ async function readAlbum(folderName) {
     const folderPath = path.join(rootDir, "album", folderName);
     const entries = await fs.readdir(folderPath, { withFileTypes: true });
     const markdownEntry = entries.find((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".md"));
-    const imageEntry = entries.find(
+    const imageEntries = entries.filter(
         (entry) => entry.isFile() && IMAGE_EXTENSIONS.has(path.extname(entry.name).toLowerCase())
-    );
+    ).sort((left, right) => left.name.localeCompare(right.name, "zh-CN", { numeric: true }));
 
-    if (!markdownEntry || !imageEntry) {
+    if (!markdownEntry) {
         return null;
     }
 
@@ -203,14 +203,32 @@ async function readAlbum(folderName) {
     const { attributes, body } = parseFrontMatter(rawMarkdown);
     const content = rewriteRelativeMarkdownPaths(body, folderPath);
 
+    const imagesBySource = new Map(imageEntries.map((entry) => {
+        const src = toUrlPath(path.join(folderPath, entry.name));
+        return [src, { src, alt: attributes.title || folderName }];
+    }));
+    // Move actual Markdown images into the gallery, preserving image examples in code.
+    const textContent = content.split(/(```[\s\S]*?```|`[^`\n]+`)/g).map((part) => {
+        if (part.startsWith("`")) return part;
+        return part.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
+            const source = src.trim();
+            const previous = imagesBySource.get(source);
+            imagesBySource.set(source, { src: source, alt: alt || previous?.alt || attributes.title || folderName });
+            return "";
+        });
+    }).join("").trim();
+    const images = Array.from(imagesBySource.values());
+    if (!images.length) return null;
+
     return {
         slug: folderName,
         title: attributes.title || folderName,
         date: attributes.date || new Date().toISOString().slice(0, 10),
-        summary: attributes.summary || extractSummary(content, folderName),
+        summary: attributes.summary || extractSummary(textContent, folderName),
         tags: normalizeTags(attributes.tags),
-        image: toUrlPath(path.join(folderPath, imageEntry.name)),
-        markdown: content
+        image: images[0].src,
+        images,
+        markdown: textContent
     };
 }
 
