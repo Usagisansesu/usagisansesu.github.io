@@ -824,7 +824,29 @@ function setupAlbumModal() {
     const title = document.getElementById("album-modal-title");
     const tags = document.getElementById("album-modal-tags");
     const markdown = document.getElementById("album-modal-markdown");
-    const imageCounter = document.getElementById("album-image-counter");
+    let imageCounter = document.getElementById("album-image-counter");
+    // A cached older HTML page can load the latest script during a Pages rollout.
+    if (!imageCounter) {
+        const media = modal.querySelector(".modal-media");
+        ["prev", "next"].forEach((direction) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = `album-image-nav album-image-${direction}`;
+            button.dataset.albumImageNav = direction;
+            button.setAttribute("aria-label", direction === "prev" ? "上一张图片" : "下一张图片");
+            button.textContent = direction === "prev" ? "‹" : "›";
+            button.hidden = true;
+            media.append(button);
+        });
+        imageCounter = document.createElement("span");
+        imageCounter.id = "album-image-counter";
+        imageCounter.className = "album-image-counter";
+        imageCounter.setAttribute("role", "status");
+        imageCounter.setAttribute("aria-live", "polite");
+        imageCounter.setAttribute("aria-atomic", "true");
+        imageCounter.hidden = true;
+        media.append(imageCounter);
+    }
     const imageButtons = modal.querySelectorAll("[data-album-image-nav]");
     let currentAlbumIndex = -1;
     let currentImageIndex = 0;
