@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- site-meta:start -->
+    <title>游戏短评 | うさうさ</title>
+    <meta name="description" content="うさうさ 的个人博客，分享 meta-GGA 量子化学优化与 Unity 引擎的技术文章、游戏短评和生活随笔。">
+    <meta name="theme-color" content="#fff9fb">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="うさうさ">
+    <meta property="og:title" content="游戏短评 | うさうさ">
+    <meta property="og:description" content="うさうさ 的个人博客，分享 meta-GGA 量子化学优化与 Unity 引擎的技术文章、游戏短评和生活随笔。">
+    <meta name="robots" content="noindex">
+    <meta name="twitter:card" content="summary">
+    <link rel="alternate" type="application/rss+xml" title="うさうさ · 技术笔记" href="./rss.xml">
+    <!-- site-meta:end -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=20261027082012">
+    <link rel="stylesheet" href="theme.css?v=20261027082012">
+</head>
+<body data-page="game-detail">
+    <div class="site-background" id="site-background" aria-hidden="true" hidden>
+        <video id="site-background-video" muted loop playsinline preload="none" hidden></video>
+    </div>
+    <button class="background-toggle" id="background-toggle" type="button" aria-label="动态背景" aria-pressed="false" hidden>播放背景</button>
+    <main class="game-detail-page">
+        <div class="container">
+            <article class="game-journal game-detail-sheet">
+                <div class="game-journal-masthead"><span>GAME NOTES</span><a class="game-detail-back" href="./index.html#games">↖ 返回游戏短评</a></div>
+                <header class="game-detail-header">
+                    <div>
+                        <p class="section-kicker">游玩记录 / 个人感受</p>
+                        <h1 id="game-detail-title">正在加载短评</h1>
+                        <div class="game-detail-meta" id="game-detail-meta"></div>
+                    </div>
+                    <div class="game-review-score" id="game-detail-score" aria-label="未评分"><strong>—</strong><span>未评分</span></div>
+                </header>
+                <div class="game-detail-body" id="game-detail-body"><p>正在加载内容…</p></div>
+                <div class="game-detail-gallery" id="game-detail-gallery" aria-label="游戏配图" hidden></div>
+                <aside class="game-detail-sources" id="game-detail-sources" aria-label="游戏资料来源" hidden></aside>
+                <footer class="game-journal-footer"><a class="game-detail-back" href="./index.html#games">← 回到游戏手账</a><span>END OF NOTE</span></footer>
+            </article>
+        </div>
+    </main>
+    <div class="image-fullscreen" id="image-fullscreen" hidden>
+        <button class="image-fullscreen-backdrop" type="button" aria-label="关闭全屏图片" data-close-fullscreen-image></button>
+        <button class="image-fullscreen-close" type="button" aria-label="关闭全屏图片" data-close-fullscreen-image>×</button>
+        <img id="image-fullscreen-img" alt="">
+    </div>
+    <script src="site-config.js?v=20261027082012"></script>
+    <script src="content-manifest.js?v=20261027082012"></script>
+    <script src="script.js?v=20261027082012"></script>
+</body>
+</html>

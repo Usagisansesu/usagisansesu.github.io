@@ -1,86 +1,111 @@
-# AzathothLXL Personal Website
+# 研究与创作 · 个人主页
 
-A lightweight static personal website for technical writing, research notes, photo essays, and profile information.
+白色与浅粉色的静态个人主页，关注 **meta-GGA 量子化学优化**和 **Unity 引擎**。首页分为简介、技术文章、游戏短评、生活随笔、个人简历与联系。基于 AzathothLXL 个人网站模板调整，使用原生 HTML / CSS / JavaScript，支持文章搜索与分类、相册弹窗和响应式布局。
 
-Live site: <https://knight46.github.io>
+昵称为「うさうさ」，使用用户提供的头像，生活兴趣包括游戏、BJD、自驾游与街霸6。个人简介尚未填写，联系方式与 GitHub 已按用户提供的信息配置，原作者的履历与简历下载入口已移除。原模板的 33 篇技术文章及配图已删除，技术文章栏目保留用于 GANSU 系列；原有 8 条示例生活随笔与配图已删除，现展示用户提供的个人记录。
 
-## Overview
+## 本地预览
 
-This repository hosts the source code for AzathothLXL's personal website. The site is built with plain HTML, CSS, and JavaScript, without a frontend framework. It is designed to stay simple, fast, and easy to maintain while still providing a polished reading experience.
+需要 Node.js，无需安装依赖。在仓库根目录运行：
 
-The current site includes:
-
-- **Intro**: a personal profile and research focus.
-- **Professional Articles**: technical blog posts about high performance computing, CUDA programming, GPU systems, distributed communication, computer vision, and related topics.
-- **Photo Essays**: short life notes paired with images.
-- **Resume**: a compact research and engineering profile with links to articles, GitHub, and email.
-- **Contact**: email, GitHub, and Bilibili links.
-- **Discovery**: article search, category filters, RSS, sitemap, and robots metadata for better navigation and indexing.
-
-## Content Structure
-
-Blog posts are stored under:
-
-```text
-blogs/<Post Name>/article.md
-```
-
-Each article can include a `pic/` directory for diagrams or images:
-
-```text
-blogs/<Post Name>/pic/
-```
-
-Photo essay entries are stored under:
-
-```text
-album/<Entry Name>/note.md
-album/<Entry Name>/<image-file>
-```
-
-The browser reads generated content from:
-
-```text
-content-manifest.js
-```
-
-The build script also generates:
-
-```text
-rss.xml
-sitemap.xml
-robots.txt
-```
-
-## Adding Or Updating Content
-
-After adding or editing Markdown content, regenerate the manifest:
-
-```bash
+```sh
 node scripts/build-content.mjs
+node scripts/serve.mjs
 ```
 
-Then run a basic syntax check:
+打开 <http://127.0.0.1:4173>。服务仅监听本机；按 `Ctrl+C` 停止。
 
-```bash
+## 修改个人资料
+
+编辑 `site.config.json`，再运行 `node scripts/build-content.mjs`：
+
+| 字段 | 用途 |
+| --- | --- |
+| `title` | 未填写姓名时使用的站点标题 |
+| `name` / `bio` | 姓名与简介；空简介自动隐藏 |
+| `focus` / `description` | 首页技术方向与搜索、分享摘要 |
+| `life` | 首页生活兴趣 |
+| `siteUrl` | 发布后的完整站点地址，可包含子目录；本地阶段留空 |
+| `github` | 完整 GitHub 主页链接；留空时显示“暂未填写” |
+| `email` / `wechat` | 联系方式；留空时显示“暂未填写” |
+| `avatar` | 头像路径，目前使用用户提供的图片 |
+| `templateContent` | 是否显示模板内容提示；全部替换为个人内容后再改为 `false` |
+| `background` | Steam 动态背景配置，包括启用开关、封面、WebM、MP4 和来源主页 |
+
+`site-config.js` 是自动生成文件，不要直接修改。站点未填写域名时，页面带 `noindex`，站点地图为空；RSS 使用本地相对链接。发布前填写 `siteUrl` 并重新生成，即会输出正式绝对地址、站点地图和分享信息，并移除 `noindex`。
+
+首页方向、经历等正文在 `index.html`；基础布局和动画在 `style.css`；白色浅粉色主题集中在 `theme.css`。
+
+个人简历按研究方向、科研与工程经历、实习与应用开发、成果与荣誉四部分展示。内容包括 GANSU、NEEP、2023 年 BitSummit 双人节奏游戏主程序员经历、2026 年光荣实习及用户提供的竞赛荣誉。光荣实习只展示名称和年份，不公开具体工作内容；语言部分写明持有日语 N1 证书与托福、托业证书，不展示成绩。经历和奖项未补写未提供的岗位、奖项级别或证书分数。
+
+简历默认用双栏摘要展示，完整获奖记录可展开。桌面端简历所在区段固定为一屏，卡片限制在导航下方的可用高度内并保持居中；展开记录或窗口较矮时可在卡片内滚动。手机端采用单列自然滚动。
+
+## Steam 动态背景
+
+当前背景来自用户提供的 Steam 主页，资源在 `src/backgrounds/`，详细原始地址和来源记录见 `src/backgrounds/SOURCE.md`。WebM / MP4 是 1920 × 1080 的成品视频，网页实测 WebM 时长约 30.33 秒，不是 GIF 或可编辑动画工程。
+
+首页和文章页使用本地视频静音循环播放，并保留白色浅粉色阅读卡片。左下角可暂停或恢复；暂停偏好在当前浏览器中保存。页面不可见时暂停播放；系统启用“减少动态效果”时默认只显示静态封面，并且不加载视频；可以主动点击按钮播放。视频无法播放时也保留封面。
+
+手机端（宽度不超过 720px）改用用户提供的月亮插画 `src/backgrounds/mobile-moon.jpg`，由 `background.mobileImage` 配置。原图上叠加 48% 的浅白色蒙层，使背景淡化；数值在 `theme.css` 的 `has-mobile-background::before` 中调整。手机首次打开不会加载桌面视频，也不显示播放按钮；调整窗口跨越断点时会自动切换。
+
+要恢复纯浅粉背景，把 `site.config.json` 中 `background.enabled` 改成 `false`，再运行生成命令。可以替换同名媒体文件，或修改配置中的路径。下载资源不等于已取得站外使用许可，公开发布前请确认素材权利人的使用条件。
+
+## 技术文章与生活随笔
+
+GANSU 系列已写入 36 篇正文，覆盖 2025 年 10 月至 2026 年 10 月，从 HF、Python SCF、DFT 学习，推进到 meta-GGA、GPU 空间与矩阵优化、BGM/AIXC、r²SCAN 和性能实验。选题与来源索引见 [GANSU 系列文章规划](notes/GANSU系列文章规划.md)。实验数据依据已有记录整理，本次没有重新运行 GPU 科学计算。
+
+首页提供系列编号、搜索与分类；详情页有上下篇导航。文章保留历史记录阶段，并统一注明 2026-10-27 补记。RSS 使用补记日期，避免把回顾文章误作当年已发布内容。第 36 篇附六分子三基组的原始汇总 CSV，保留数据来源和统计字段。
+
+文章：`blogs/<文章目录>/article.md`，图片通常放在同目录的 `pic/`。
+
+```md
+---
+title: 文章标题
+date: 2026-10-27
+category: Unity
+summary: 文章摘要
+tags: Unity, 引擎开发
+---
+
+# 文章标题
+
+正文内容。
+```
+
+相册：`album/<随笔目录>/note.md`，同目录放一张照片。Markdown 元数据格式同上，可省略 `category`。
+
+当前生活随笔为 2026-10-02 的「みずき数量增加了！」，使用用户提供的照片，正文保留原句，不作扩写。
+
+修改内容后运行 `node scripts/build-content.mjs`。脚本兼容 Windows 和 Unix 换行，生成内容清单、站点配置、RSS、站点地图和 robots，并刷新页面资源版本。
+
+GANSU 文章还使用 `period`（记录月份）、`written`（补记日期）、`series` 与 `series_order`（系列顺序）元数据。新篇目延续序号即可自动进入系列导航。
+
+Markdown 使用轻量自定义渲染器，支持基础标题、列表、引用、链接、图片、反引号代码块和简单表格。公式以可读文本展示；长表格在手机上可横向滚动。
+
+## 游戏短评
+
+写作前先收集并核实游戏的基本资料，至少确认游戏类型与核心玩法；根据文章需要补充开发团队、题材与叙事形式等信息。优先查阅游戏官方商店页、官网或开发者发布的介绍，并保留来源链接。对尚未确认的信息不作猜测，也不把商店标签直接当作玩家体验。
+
+短评以用户给出的感受和评分为主，在正文中自然融入必要的游戏背景；外部资料用于解释作品，不替代用户观点，不编造游玩经历、剧情细节或具体机制，并避免无必要的剧透。
+
+资料链接放入可选的 `sources` 数组，每项包含 `title` 与 HTTP(S) `url`，详情页会在配图后显示；没有来源时自动隐藏。《稗子》已根据 Steam 和 PLAYISM 的官方介绍补充类型、基本操作与故事开端。
+
+游戏短评使用独立的横向手账清单：游戏及游玩记录、摘要、可选评分。点击整行可打开 `game.html?slug=...` 阅读完整内容；详情页支持多段正文和 1–2 张图片，点击图片可以放大。与技术文章卡片和生活随笔照片布局不同，手机端会自动折行。
+
+在 `games/reviews.json` 中按希望展示的顺序逐条添加，之后运行 `node scripts/build-content.mjs` 即可。当前已有《真・三国无双2 with 猛将传Remastered》（2026-10-25，8.5/10.0，游玩20小时）、《稗子》（2026-10-15，8.0/10.0）与《死亡游戏调查报告》（2026-10-03，8.5/10.0）的个人短评及配图；列表和详情页评分统一保留一位小数。没有记录时自动显示空状态。
+
+每项必填 `title`（游戏名）和 `review`（完整正文，可包含多段文字）；可选 `slug`（唯一链接标识，默认使用游戏名）、`summary`（列表摘要，未填写时从正文提取）、`status`（如“在玩”“已通关”“暂放”）、`platform`、`date`（YYYY-MM-DD）、`score`（0–10 数字）。同一游戏有多篇记录时需使用不同 `slug`；修改标题时可保留 `slug`，保持原链接可用。
+
+配图用可选的 `images` 数组，最多两张。每项可以是项目根目录下的相对路径字符串，如 `games/images/screenshot.jpg`，或包含 `src`、`alt`、`caption` 的对象；也支持 HTTP(S) 图片地址。本地图片需要先放进项目。图片保留原比例，一张时居中，两张时桌面并排、手机上下排列。
+
+正文按纯文本安全展示，`\n` 换行、`\n\n` 分段，不限制为一句话；配图在正文之后显示。不填评分时显示“未评分”。列表直接展示全部短评，游玩状态作为记录信息显示；短评独立于技术文章 RSS，已填写域名后会进入站点地图。
+
+## 基础检查
+
+```sh
 node --check script.js
 node --check scripts/build-content.mjs
+node --check scripts/serve.mjs
 ```
 
-## Article Image Policy
-
-Technical posts should use traceable, relevant figures before generated images. For paper-reading posts, prefer framework, architecture, workflow, or key-result figures from the original paper, arXiv HTML/PDF, official project page, or official repository. For non-paper technical posts, prefer official documentation, official technical blogs, project documentation, or clearly attributable technical articles.
-
-If no suitable external figure is available, create a clean original explanatory diagram and mark it as a site-made figure. Every figure should be explained in context, and articles should move from motivation to mechanism, system implications, limitations, and engineering takeaways.
-
-## Tech Stack
-
-- HTML
-- CSS
-- Vanilla JavaScript
-- Markdown-based content folders
-- GitHub Pages deployment
-
-## Repository Goal
-
-The goal of this repository is to maintain a quiet, readable, and long-lived personal knowledge space. Professional articles focus on technical understanding and method notes, while photo essays keep a lighter record of everyday life.
+原模板的头像、背景、加密简历文件仍保留在仓库中，目前页面不会加载这些文件。正式发布前请替换或清理不需要的示例内容和文件。

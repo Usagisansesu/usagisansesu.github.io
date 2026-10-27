@@ -1,274 +1,338 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
     <channel>
-        <title>AzathothLXL Professional Articles</title>
-        <link>https://knight46.github.io/</link>
-        <description>高性能计算、GPU 系统、深度学习系统和相关研究笔记。</description>
+        <title>うさうさ · 技术笔记</title>
+        <link>./</link>
+        <description>うさうさ 的个人博客，分享 meta-GGA 量子化学优化与 Unity 引擎的技术文章、游戏短评和生活随笔。</description>
         <language>zh-CN</language>
-        <lastBuildDate>Fri, 23 Oct 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 27 Oct 2026 00:00:00 GMT</lastBuildDate>
         <item>
-            <title>CUDA 原子内存模型：Scope、Order 与 Fence 如何组合</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20Atomic%20Memory%20Model</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20Atomic%20Memory%20Model</guid>
-            <pubDate>Fri, 23 Oct 2026 00:00:00 GMT</pubDate>
-            <description>从原子性、内存顺序与线程作用域三个正交维度出发，用 happens-before 推导 CUDA 跨 block、跨 GPU 与 CPU–GPU 同步，并给出 fence、PTX、性能模型和验证流程。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>GPU Memory Model</category><category>Atomics</category><category>Memory Ordering</category><category>PTX</category><category>Synchronization</category>
+            <title>每日一题 · 3963. 构造恰好一条路径的网格</title>
+            <link>./blog.html?slug=LeetCode-3963-Construct-Exactly-One-Path</link>
+            <guid>./blog.html?slug=LeetCode-3963-Construct-Exactly-One-Path</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>先用障碍填满网格，再打通第一行和最后一列，构造一条先向右、再向下的唯一路径。</description>
+            <category>每日一题</category><category>LeetCode</category><category>C++</category><category>构造</category><category>网格</category>
         </item>
         <item>
-            <title>mKernel：把多 GPU 融合 Kernel 扩展到多节点 RDMA</title>
-            <link>https://knight46.github.io/blog.html?slug=mKernel%20Multi%20Node%20Fused%20Kernels</link>
-            <guid>https://knight46.github.io/blog.html?slug=mKernel%20Multi%20Node%20Fused%20Kernels</guid>
+            <title>统一网格与三种基组：六种分子的 SCAN/r²SCAN + BGM + AIXC 对照</title>
+            <link>./blog.html?slug=GANSU-36-Uniform-Grid-Basis-Benchmark</link>
+            <guid>./blog.html?slug=GANSU-36-Uniform-Grid-Basis-Benchmark</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>统一 Grid 3、三种基组与相同 BGM/AIXC 条件，整理六分子的完整加速比，保留收益缩小及其他体系减速结果。</description>
+            <category>性能实验</category><category>GANSU</category><category>SCAN</category><category>r²SCAN</category><category>基准测试</category>
+        </item>
+        <item>
+            <title>如何读懂加速比：固定密度、单次 XC、累计 XC 和完整 SCF</title>
+            <link>./blog.html?slug=GANSU-35-Timing-and-Speedup</link>
+            <guid>./blog.html?slug=GANSU-35-Timing-and-Speedup</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>用已有实验区分固定密度、平均每次 XC、累计 XC 与完整 SCF 墙钟，解释调用次数如何改变加速比。</description>
+            <category>性能实验</category><category>GANSU</category><category>计时口径</category><category>SCF</category><category>AIXC</category>
+        </item>
+        <item>
+            <title>同一种 r²SCAN 的两版导数实现：有限差分到自动微分</title>
+            <link>./blog.html?slug=GANSU-34-R2SCAN-Automatic-Differentiation</link>
+            <guid>./blog.html?slug=GANSU-34-R2SCAN-Automatic-Differentiation</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>比较同一种 r²SCAN 的有限差分与自动微分实现，说明约 3.3 倍泛函求值收益为何只转化为较小完整 XC 收益。</description>
+            <category>r²SCAN</category><category>GANSU</category><category>自动微分</category><category>r²SCAN</category><category>性能实验</category>
+        </item>
+        <item>
+            <title>每日一题 · 3619. 总价值可以被 K 整除的岛屿数目</title>
+            <link>./blog.html?slug=LeetCode-3619-Count-Islands-Divisible-by-K</link>
+            <guid>./blog.html?slug=LeetCode-3619-Count-Islands-Divisible-by-K</guid>
+            <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
+            <description>从未访问的陆地出发做四方向 DFS，遍历整座岛屿并累加单元格价值，再用总和对 k 取余判断是否计入答案。</description>
+            <category>每日一题</category><category>LeetCode</category><category>C++</category><category>DFS</category><category>网格</category><category>连通分量</category>
+        </item>
+        <item>
+            <title>每日一题 · 3863. 将一个字符串排序的最小操作次数</title>
+            <link>./blog.html?slug=LeetCode-3863-Minimum-Operations-to-Sort-a-String</link>
+            <guid>./blog.html?slug=LeetCode-3863-Minimum-Operations-to-Sort-a-String</guid>
+            <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+            <description>不能直接排序整个字符串，就从首尾字符与前后缀极值入手，按长度及边界条件判断最少需要 0、1、2、3 次操作，或无解。</description>
+            <category>每日一题</category><category>LeetCode</category><category>C++</category><category>字符串</category><category>分类讨论</category><category>贪心</category>
+        </item>
+        <item>
+            <title>r²SCAN 的接入与首轮验证</title>
+            <link>./blog.html?slug=GANSU-33-R2SCAN-Integration</link>
+            <guid>./blog.html?slug=GANSU-33-R2SCAN-Integration</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>记录 r²SCAN 从能量、局部导数到 Vxc 的接入与首轮参考验证，明确能量测试和解析核力的边界。</description>
+            <category>r²SCAN</category><category>GANSU</category><category>r²SCAN</category><category>Libxc</category><category>正确性验证</category>
+        </item>
+        <item>
+            <title>每日一题 · 3886. 可排序整数求和</title>
+            <link>./blog.html?slug=LeetCode-3886-Sum-of-Sortable-Integers</link>
+            <guid>./blog.html?slug=LeetCode-3886-Sum-of-Sortable-Integers</guid>
+            <pubDate>Tue, 20 Oct 2026 00:00:00 GMT</pubDate>
+            <description>枚举数组长度的因数，将每个候选块长拆成块内旋转有序与块间大小衔接两个判断，累加所有可行的 k。</description>
+            <category>每日一题</category><category>LeetCode</category><category>C++</category><category>数组</category><category>枚举</category><category>循环移动</category>
+        </item>
+        <item>
+            <title>每日一题 · 2089. 找出数组排序后的目标下标</title>
+            <link>./blog.html?slug=LeetCode-2089-Target-Indices</link>
+            <guid>./blog.html?slug=LeetCode-2089-Target-Indices</guid>
             <pubDate>Mon, 19 Oct 2026 00:00:00 GMT</pubDate>
-            <description>拆解 mKernel 如何用 persistent kernel、分层 NVLink/RDMA 数据移动、GPU 命令队列与动态 SM 划分，把计算、节点内通信和跨节点网络压进 tile 级流水线。</description>
-            <category>HPC</category><category>HPC</category><category>Multi-GPU</category><category>Multi-Node</category><category>RDMA</category><category>NVLink</category><category>Persistent Kernel</category><category>Distributed Training</category>
+            <description>不必真正排序：统计小于 target 的元素个数，以及等于 target 的元素个数，就能直接确定目标下标所在的连续区间。</description>
+            <category>每日一题</category><category>LeetCode</category><category>C++</category><category>计数</category><category>数组</category>
         </item>
         <item>
-            <title>CUDA Programmatic Dependent Launch：让有依赖的相邻 Kernel 安全重叠</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20Programmatic%20Dependent%20Launch</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20Programmatic%20Dependent%20Launch</guid>
-            <pubDate>Fri, 16 Oct 2026 00:00:00 GMT</pubDate>
-            <description>拆解 CUDA Programmatic Dependent Launch 的 trigger/synchronize 双阶段协议、扩展 launch 与 CUDA Graph 表达，并用资源模型和 CUTLASS 权重预取案例说明何时能真正回收相邻 kernel 之间的等待窗口。</description>
-            <category>HPC</category><category>CUDA</category><category>GPU</category><category>Hopper</category><category>Blackwell</category><category>Kernel Launch</category><category>CUTLASS</category><category>Performance</category>
+            <title>真正的 grouped GEMM：meta-GGA 的分组收缩与缓存修复</title>
+            <link>./blog.html?slug=GANSU-32-Literal-Grouped-GEMM</link>
+            <guid>./blog.html?slug=GANSU-32-Literal-Grouped-GEMM</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>记录实际 grouped GEMM 接入与缓存修复，说明 Grid 4 下约 1.20 倍是该路径上启用 AIXC 的组装收益。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>grouped GEMM</category><category>cuBLAS</category><category>meta-GGA</category>
         </item>
         <item>
-            <title>Stream-K 与持久化 GEMM：从 Wave Quantization 到工作中心调度</title>
-            <link>https://knight46.github.io/blog.html?slug=Stream%20K%20Persistent%20GEMM</link>
-            <guid>https://knight46.github.io/blog.html?slug=Stream%20K%20Persistent%20GEMM</guid>
-            <pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
-            <description>从整卡利用率出发，解释传统 data-parallel GEMM 的 wave quantization、持久化 worker、Stream-K 的 K-iteration 分解与 partial-tile fix-up，并给出 CUTLASS 落地、资源模型和可复现 benchmark 方法。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>GEMM</category><category>CUTLASS</category><category>Stream-K</category><category>Persistent Kernels</category><category>GPU Scheduling</category>
+            <title>AIXC 接入 meta-GGA：full、anchor、delta 与最终全网格确认</title>
+            <link>./blog.html?slug=GANSU-31-Anchored-Incremental-XC</link>
+            <guid>./blog.html?slug=GANSU-31-Anchored-Incremental-XC</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>整理 AIXC 的代表点、锚点补偿与最终全网格确认，并保留一次未获整体加速的消融实验。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>AIXC</category><category>SCF</category><category>消融实验</category>
         </item>
         <item>
-            <title>FlashAttention-4：当 Tensor Core 变快后，Attention 为什么要重写流水线</title>
-            <link>https://knight46.github.io/blog.html?slug=FlashAttention%204%20Blackwell</link>
-            <guid>https://knight46.github.io/blog.html?slug=FlashAttention%204%20Blackwell</guid>
-            <pubDate>Fri, 09 Oct 2026 00:00:00 GMT</pubDate>
-            <description>从 Blackwell 的非对称硬件扩展出发，拆解 FlashAttention-4 如何用全异步 MMA、TMEM、软件指数近似、条件重缩放和 2-CTA 协作重排前后向流水线，并给出性能解读与工程检查清单。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>Blackwell</category><category>FlashAttention-4</category><category>Attention</category><category>TMEM</category><category>tcgen05</category><category>CuTe DSL</category><category>Deep Learning Systems</category>
+            <title>stored-J、direct-J 与 RI-J：正确性、显存与公平基线</title>
+            <link>./blog.html?slug=GANSU-30-Coulomb-J-Backends</link>
+            <guid>./blog.html?slug=GANSU-30-Coulomb-J-Backends</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>比较三种 Coulomb J 构建路线，明确 RI 拟合误差、显存成本与公平性能比较的边界。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>RI-J</category><category>Coulomb</category><category>基准测试</category>
         </item>
         <item>
-            <title>Blink：把 LLM Serving 的控制面搬进 GPU 与 SmartNIC</title>
-            <link>https://knight46.github.io/blog.html?slug=Blink%20CPU%20Free%20LLM%20Inference</link>
-            <guid>https://knight46.github.io/blog.html?slug=Blink%20CPU%20Free%20LLM%20Inference</guid>
-            <pubDate>Fri, 02 Oct 2026 00:00:00 GMT</pubDate>
-            <description>从 Blink 论文出发，拆解一种 CPU-free steady-state LLM serving 架构：SmartNIC 处理请求与 RDMA 数据面，GPU 常驻调度器接管 continuous batching、CUDA Graph 与 Paged KV-cache 控制，并分析它的性能边界与工程代价。</description>
-            <category>AI Systems</category><category>LLM Serving</category><category>GPU Systems</category><category>SmartNIC</category><category>Persistent Kernel</category><category>GPUDirect RDMA</category><category>KV Cache</category>
+            <title>BGM 的移植与调参：键引导的空间分组在 meta-GGA 中怎样工作</title>
+            <link>./blog.html?slug=GANSU-29-BGM-Port</link>
+            <guid>./blog.html?slug=GANSU-29-BGM-Port</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>记录已有 BGM 方法在 GANSU 中的适配，区分种子、Morton 排序、bin 大小以及筛选近似的影响。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>BGM</category><category>空间分组</category><category>Morton</category>
         </item>
         <item>
-            <title>CUDA TMA：用描述符、mbarrier 与 Swizzle 重构 Hopper 数据搬运</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20TMA%20Async%20Tensor%20Copies</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20TMA%20Async%20Tensor%20Copies</guid>
-            <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
-            <description>从 CUtensorMap、异步代理与 mbarrier 的正确性协议出发，系统讲解 Hopper TMA 的多维搬运、双缓冲、shared-memory swizzle、warp specialization、multicast，以及可落地的性能建模与验证流程。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>Hopper</category><category>TMA</category><category>Async Copy</category><category>mbarrier</category><category>Shared Memory</category><category>CUTLASS</category><category>CuTe</category>
+            <title>AO/gradient pack cache：设计、复用和失效条件</title>
+            <link>./blog.html?slug=GANSU-28-AO-Pack-Cache</link>
+            <guid>./blog.html?slug=GANSU-28-AO-Pack-Cache</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>区分固定的 AO/梯度与变化的密度矩阵，整理打包缓存的复用范围、失效条件和验证方法。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>缓存</category><category>AO</category><category>SCF</category>
         </item>
         <item>
-            <title>CUDA MPS v3：把共享 GPU 变成可声明的多租户资源层</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20MPS%20v3%20GPU%20Sharing</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20MPS%20v3%20GPU%20Sharing</guid>
-            <pubDate>Mon, 21 Sep 2026 00:00:00 GMT</pubDate>
-            <description>从 named server、namespace、静态 SM 分区与 locality domain，到 CUDA 13.4 的 cgroup v2 device-memory partitioning，系统拆解 MPS v3 如何把多进程并发升级为可声明、可审计的 GPU 资源控制面。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>MPS</category><category>MPS v3</category><category>GPU Sharing</category><category>QoS</category><category>Memory Partitioning</category><category>cgroup</category><category>MLOPart</category>
+            <title>ρ、σ、τ 的矩阵化：局部密度矩阵与批量收缩</title>
+            <link>./blog.html?slug=GANSU-27-Matrix-Density-Ingredients</link>
+            <guid>./blog.html?slug=GANSU-27-Matrix-Density-Ingredients</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>将 ρ、密度梯度和 τ 的 AO 对收缩整理为矩阵运算，并说明局部 AO 子集与填充的正确性要求。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>密度矩阵</category><category>GEMM</category><category>meta-GGA</category>
         </item>
         <item>
-            <title>Blackwell TMEM 与 tcgen05：第五代 Tensor Core 如何重写 GEMM 数据流</title>
-            <link>https://knight46.github.io/blog.html?slug=Blackwell%20Tensor%20Memory%20tcgen05</link>
-            <guid>https://knight46.github.io/blog.html?slug=Blackwell%20Tensor%20Memory%20tcgen05</guid>
-            <pubDate>Fri, 18 Sep 2026 00:00:00 GMT</pubDate>
-            <description>从 accumulator 数据流、Tensor Memory 生命周期和 producer/consumer pipeline 出发，解释 Blackwell tcgen05 如何缓解寄存器压力，以及工程实现中必须同时核算的 TMEM、SMEM、同步、CTA pair 与 epilogue 成本。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>Blackwell</category><category>Tensor Memory</category><category>tcgen05</category><category>Tensor Core</category><category>CUTLASS</category><category>GEMM</category><category>HPC</category>
+            <title>优化 Vxc 以后：为什么瓶颈转移到了 ρ/σ/τ</title>
+            <link>./blog.html?slug=GANSU-26-Bottleneck-Migration</link>
+            <guid>./blog.html?slug=GANSU-26-Bottleneck-Migration</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>以 2026 年 7 月的阶段计时解释瓶颈迁移：Vxc 变快以后，下一步为什么转向密度量计算。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>性能分析</category><category>meta-GGA</category><category>Amdahl</category>
         </item>
         <item>
-            <title>CUDA Green Contexts：用 SM 空间分区隔离延迟敏感任务</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20Green%20Contexts</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20Green%20Contexts</guid>
-            <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
-            <description>从 stream priority 的非抢占边界出发，拆解 CUDA 13.1 Green Context 的 SM 与 work queue 分区机制、Runtime API 工程流程、性能模型，以及与 MPS、MIG、CUDA Graph 的选择边界。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>Green Contexts</category><category>GPU Partitioning</category><category>QoS</category><category>Latency</category><category>MPS</category><category>MIG</category><category>Nsight Systems</category>
+            <title>actual_nA 与 padded_nA：一次 GPU 缓冲区尺寸错误</title>
+            <link>./blog.html?slug=GANSU-25-Padding-Buffer-Bug</link>
+            <guid>./blog.html?slug=GANSU-25-Padding-Buffer-Bug</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>从一次实际的缓冲区错误出发，梳理有效 AO 数、填充尺寸与批量矩阵访问之间的约束。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>CUDA</category><category>显存</category><category>调试</category>
         </item>
         <item>
-            <title>CUDA Thread Block Clusters：跨 SM 协作与 Distributed Shared Memory</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20Thread%20Block%20Clusters</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20Thread%20Block%20Clusters</guid>
-            <pubDate>Fri, 11 Sep 2026 00:00:00 GMT</pubDate>
-            <description>从执行保证、DSM 地址与同步语义出发，分析 Hopper Thread Block Clusters 的性能和资源模型，并给出 histogram 改造、launch 检查、基准设计与工程实践清单。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>Thread Block Clusters</category><category>Distributed Shared Memory</category><category>Hopper</category><category>GPU</category><category>HPC</category><category>Performance</category>
+            <title>Bucket + cuBLAS：不规则 bin 如何变成批量矩阵乘法</title>
+            <link>./blog.html?slug=GANSU-24-Bucket-cuBLAS</link>
+            <guid>./blog.html?slug=GANSU-24-Bucket-cuBLAS</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>解释不规则 active AO/bin 如何通过 bucket、padding 和 pack 转成 batched GEMM，并厘清 leading dimension 与 stride。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>cuBLAS</category><category>Bucket</category><category>Batched GEMM</category>
         </item>
         <item>
-            <title>CudaMPC：把实时模型预测控制压进一个持久化 CUDA Kernel</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20MPC%20GPU%20Native%20Control</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20MPC%20GPU%20Native%20Control</guid>
-            <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
-            <description>阅读 CudaMPC 论文后的一篇 GPU 科学计算笔记：为什么把优化器写成 PyTorch 算子序列仍会被 kernel launch 与 VRAM 流量拖慢，以及如何用时间域并行 ADMM、共享内存常驻和邻居原子同步实现 GPU-native MPC。</description>
-            <category>Scientific Computing</category><category>CUDA</category><category>GPU</category><category>MPC</category><category>ADMM</category><category>Scientific Computing</category><category>Robotics</category><category>Kernel Fusion</category>
+            <title>Morton 排序：把三维格点组织成连续的工作单元</title>
+            <link>./blog.html?slug=GANSU-23-Morton-Ordering</link>
+            <guid>./blog.html?slug=GANSU-23-Morton-Ordering</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>整理 Morton 编码、seed 分组与格点排序的作用，并区分 6 月历史实现和后续 BGM 的量化约定。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>Morton</category><category>空间排序</category><category>局域性</category>
         </item>
         <item>
-            <title>ARK：让分离式 LLM Serving 的 KV Cache 传输避开网络碰撞</title>
-            <link>https://knight46.github.io/blog.html?slug=ARK%20KV%20Cache%20Routing</link>
-            <guid>https://knight46.github.io/blog.html?slug=ARK%20KV%20Cache%20Routing</guid>
-            <pubDate>Mon, 31 Aug 2026 00:00:00 GMT</pubDate>
-            <description>阅读 ARK、llm-d disaggregated serving 和 KV cache 互联网化相关资料后的一篇系统笔记，解释为什么 prefill/decode 分离会把 KV cache 传输推到数据中心网络关键路径上，以及如何用路径预留和碰撞规避降低首 token 与尾延迟。</description>
-            <category>AI Systems</category><category>AI Systems</category><category>LLM Serving</category><category>Disaggregated Inference</category><category>KV Cache</category><category>Datacenter Network</category><category>GPU Systems</category>
+            <title>Vxc 对称性与 scatter：上三角优化怎样保持正确</title>
+            <link>./blog.html?slug=GANSU-22-Symmetric-Vxc-Scatter</link>
+            <guid>./blog.html?slug=GANSU-22-Symmetric-Vxc-Scatter</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>说明 Vxc 的局部矩阵、全局 AO 编号和对称累加，重点讨论对角项、重叠 bin 和原子累加误差。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>Vxc</category><category>对称性</category><category>scatter</category>
         </item>
         <item>
-            <title>GPU 透明 Checkpoint：从应用级保存到 CPU-GPU 统一快照</title>
-            <link>https://knight46.github.io/blog.html?slug=Transparent%20GPU%20Checkpointing</link>
-            <guid>https://knight46.github.io/blog.html?slug=Transparent%20GPU%20Checkpointing</guid>
-            <pubDate>Mon, 17 Aug 2026 00:00:00 GMT</pubDate>
-            <description>阅读 CRIUgpu、NVIDIA cuda-checkpoint 和 Kubernetes checkpoint/restore 进展后的一篇系统笔记，解释为什么 GPU 作业透明迁移长期困难，以及如何用驱动级 GPU 状态保存、CRIU 插件和容器镜像化 checkpoint 把抢占、迁移和故障恢复做成基础设施能力。</description>
-            <category>GPU Systems</category><category>HPC</category><category>GPU</category><category>CUDA</category><category>Checkpoint</category><category>Kubernetes</category><category>Fault Tolerance</category>
+            <title>Octree 分箱落地：格点划分与 active AO 列表</title>
+            <link>./blog.html?slug=GANSU-21-Octree-Binning</link>
+            <guid>./blog.html?slug=GANSU-21-Octree-Binning</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>根据 Octree 实装记录，梳理递归划分、停止条件、空 bin 与全局格点映射，说明分箱元数据为何影响数值正确性。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>Octree</category><category>bin</category><category>索引映射</category>
         </item>
         <item>
-            <title>100K GPU 训练容错：从全局重启到副本级异步恢复</title>
-            <link>https://knight46.github.io/blog.html?slug=Fault%20Tolerant%20LLM%20Training</link>
-            <guid>https://knight46.github.io/blog.html?slug=Fault%20Tolerant%20LLM%20Training</guid>
-            <pubDate>Mon, 10 Aug 2026 00:00:00 GMT</pubDate>
-            <description>阅读 FT-HSDP、ByteRobust、TierCheck 和 MegaScale 后的一篇系统笔记，解释十万 GPU 级 LLM 训练为什么不能再依赖全局同步重启，以及如何用副本级容错、快速诊断和分层 checkpoint 把故障恢复塞进训练流水线。</description>
-            <category>AI Systems</category><category>HPC</category><category>GPU</category><category>Distributed Training</category><category>Fault Tolerance</category><category>LLM Systems</category>
+            <title>用 Octree 与 active AO 缩小 meta-GGA 的计算范围</title>
+            <link>./blog.html?slug=GANSU-20-Octree-and-Active-AO</link>
+            <guid>./blog.html?slug=GANSU-20-Octree-and-Active-AO</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>解释 Octree 与 active AO 怎样减少局部收缩工作，区分空间重排、阈值筛选和真正改变积分网格。</description>
+            <category>GPU 计算优化</category><category>GANSU</category><category>Octree</category><category>AO 筛选</category><category>meta-GGA</category>
         </item>
         <item>
-            <title>FlashInfer：把 LLM Serving 的动态性压进可组合 GPU Kernel 栈</title>
-            <link>https://knight46.github.io/blog.html?slug=FlashInfer%20Inference%20Kernel%20Stack</link>
-            <guid>https://knight46.github.io/blog.html?slug=FlashInfer%20Inference%20Kernel%20Stack</guid>
-            <pubDate>Sun, 02 Aug 2026 00:00:00 GMT</pubDate>
-            <description>读 FlashInfer 论文和 NVIDIA 官方介绍后的一篇系统笔记，重点解释它如何用统一 KV 表示、JIT attention template、plan/run 接口和 CUDAGraph-safe 调度，把复杂 LLM 推理请求落到高性能 GPU kernel。</description>
-            <category>AI Systems</category><category>AI Systems</category><category>LLM Serving</category><category>CUDA</category><category>FlashInfer</category><category>GPU Kernel</category>
+            <title>GANSU 与 PySCF 的首轮性能对照</title>
+            <link>./blog.html?slug=GANSU-19-First-PySCF-Benchmark</link>
+            <guid>./blog.html?slug=GANSU-19-First-PySCF-Benchmark</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>整理首轮 GANSU/PySCF 性能对照需要的条件与计时边界，解释正确性验证和性能比较为何应分开。</description>
+            <category>性能实验</category><category>GANSU</category><category>性能实验</category><category>PySCF</category><category>计时</category>
         </item>
         <item>
-            <title>Tensor Core SpMM：把不规则稀疏矩阵乘法送进矩阵引擎</title>
-            <link>https://knight46.github.io/blog.html?slug=Tensor%20Core%20SpMM</link>
-            <guid>https://knight46.github.io/blog.html?slug=Tensor%20Core%20SpMM</guid>
-            <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
-            <description>阅读 Acc-SpMM、cuTeSpMM 和 NVIDIA cuSPARSE 资料后的一篇系统笔记，解释 SpMM 为什么难以直接吃满 Tensor Core，以及重排序、压缩格式、流水线和稀疏感知负载均衡如何把通用稀疏矩阵映射到高吞吐 GPU 矩阵引擎。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>Tensor Core</category><category>SpMM</category><category>Sparse Matrix</category><category>HPC</category><category>Deep Learning</category>
+            <title>一份误差排查清单：网格、初猜、阈值和 Vxc</title>
+            <link>./blog.html?slug=GANSU-18-Error-Isolation</link>
+            <guid>./blog.html?slug=GANSU-18-Error-Isolation</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>以 4 月误差诊断为主线，并注明后续复盘，说明如何逐项排除网格、初猜、收敛和组装层面的差异。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>误差分析</category><category>网格</category><category>复现</category>
         </item>
         <item>
-            <title>CUDA Tile C++：把 Tensor Core Kernel 提升到 tile 级抽象</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20Tile%20Cpp%20Kernels</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20Tile%20Cpp%20Kernels</guid>
-            <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
-            <description>阅读 CUDA 13.1/13.3 官方资料后的一篇系统笔记，解释 CUDA Tile C++ 为什么出现、它如何用 tile kernel 与 Tile IR 抽象 Tensor Core/TMA/shared memory 细节，以及这种模型适合哪些 GPU kernel 开发场景。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>GPU</category><category>Tile Programming</category><category>Tensor Core</category><category>Compiler</category><category>HPC</category>
+            <title>逐点对照 PySCF/Libxc：把总能差拆到交换与相关</title>
+            <link>./blog.html?slug=GANSU-17-Pointwise-Libxc-Diagnostics</link>
+            <guid>./blog.html?slug=GANSU-17-Pointwise-Libxc-Diagnostics</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>介绍固定相同格点密度量逐点核对 SCAN 的方法，区分每电子与每体积能量密度，并定位交换、相关与积分差异。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>PySCF</category><category>Libxc</category><category>逐点诊断</category>
         </item>
         <item>
-            <title>MXFP8 训练 LLM：从低精度算力到稳定预训练配方</title>
-            <link>https://knight46.github.io/blog.html?slug=MXFP8%20LLM%20Training</link>
-            <guid>https://knight46.github.io/blog.html?slug=MXFP8%20LLM%20Training</guid>
-            <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
-            <description>阅读 2024-2026 年 FP8/MXFP8 训练论文和工程资料后的一篇系统笔记，讨论 LLM 预训练为什么需要 microscaling、哪些张量能进 FP8、如何处理 outlier 和长期稳定性，以及在 GPU 训练栈中落地的验证流程。</description>
-            <category>HPC</category><category>HPC</category><category>GPU</category><category>FP8</category><category>MXFP8</category><category>LLM Training</category><category>Deep Learning Systems</category>
+            <title>α=0 附近的差分陷阱与 SCAN 导数修复</title>
+            <link>./blog.html?slug=GANSU-16-Alpha-Boundary-Derivatives</link>
+            <guid>./blog.html?slug=GANSU-16-Alpha-Boundary-Derivatives</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>解释 α 的边界裁剪如何影响有限差分，区分物理输入域、非光滑实现和局部导数的验证。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>SCAN</category><category>α</category><category>有限差分</category>
         </item>
         <item>
-            <title>ParallelKittens：把多 GPU 通信写进 CUDA Kernel</title>
-            <link>https://knight46.github.io/blog.html?slug=ParallelKittens%20Multi%20GPU%20Kernels</link>
-            <guid>https://knight46.github.io/blog.html?slug=ParallelKittens%20Multi%20GPU%20Kernels</guid>
-            <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
-            <description>读 ParallelKittens 与 ThunderKittens 多 GPU kernel 系列后的一篇系统笔记：为什么标准通信库不总适合细粒度 AI kernel，PK 如何用 peer memory、NVLink/NVSwitch 与 tile 级流水线把通信和计算放到同一个 CUDA kernel 里。</description>
-            <category>AI Systems</category><category>CUDA</category><category>Multi-GPU</category><category>AI Systems</category><category>NVLink</category><category>Kernel Optimization</category>
+            <title>SCAN 接入 GANSU：从密度量到 Fock 再到 SCF</title>
+            <link>./blog.html?slug=GANSU-15-SCAN-in-GANSU</link>
+            <guid>./blog.html?slug=GANSU-15-SCAN-in-GANSU</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>复盘 SCAN 在 GANSU 中接通密度量、XC 导数、势矩阵与 SCF 的过程，明确功能接线与数值校准的区别。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>SCAN</category><category>RKS</category><category>Fock</category>
         </item>
         <item>
-            <title>UVM 显存超订阅训练：把统一内存做成可控的分层内存系统</title>
-            <link>https://knight46.github.io/blog.html?slug=UVM%20Oversubscription%20DL%20Training</link>
-            <guid>https://knight46.github.io/blog.html?slug=UVM%20Oversubscription%20DL%20Training</guid>
-            <pubDate>Fri, 17 Jul 2026 00:00:00 GMT</pubDate>
-            <description>阅读 EuroMLSys 2025 UVM 深度学习训练分析、NVIDIA CUDA Unified Memory/HMM 文档和 Shared Virtual Memory 研究后的一篇工程笔记，讨论 GPU 显存超订阅为什么会慢，以及如何用工作集拆分、prefetch、checkpoint/offload 和 profiling 把它做成可控训练策略。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>GPU Memory</category><category>Unified Memory</category><category>Deep Learning Training</category><category>HPC</category><category>Performance</category>
+            <title>把 ao_grad→τ 接入 GANSU：接口与小模型测试</title>
+            <link>./blog.html?slug=GANSU-14-Tau-Interface-Tests</link>
+            <guid>./blog.html?slug=GANSU-14-Tau-Interface-Tests</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>依据 3 月 τ 接线记录，展开 kernel 与包装层分工、零输入测试及可手算模型，建立可复用的验证接口。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>τ</category><category>CUDA 测试</category><category>接口设计</category>
         </item>
         <item>
-            <title>FlashMLA 与 MLA 解码：把长上下文推理的带宽账算清楚</title>
-            <link>https://knight46.github.io/blog.html?slug=FlashMLA%20MLA%20Decoding</link>
-            <guid>https://knight46.github.io/blog.html?slug=FlashMLA%20MLA%20Decoding</guid>
-            <pubDate>Mon, 13 Jul 2026 00:00:00 GMT</pubDate>
-            <description>阅读 FlashMLA、FlashMLA-ETAP、FlashInfer、SnapMLA 和 DeepSeek-V3 技术报告后的一篇系统笔记，解释 Multi-head Latent Attention 为什么能减少 KV cache，FlashMLA 类内核如何围绕 Hopper Tensor Core、paged KV cache、转置流水线和 FP8 量化优化长上下文 decode。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>GPU</category><category>LLM Serving</category><category>Attention Kernel</category><category>FlashMLA</category><category>MLA</category><category>Hopper</category>
+            <title>低密度尾部的数值不稳定：NaN、Inf 与保护策略</title>
+            <link>./blog.html?slug=GANSU-13-Low-Density-Stability</link>
+            <guid>./blog.html?slug=GANSU-13-Low-Density-Stability</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>从低密度尾部的除法与指数运算解释 SCAN 数值异常，讨论保护策略怎样避免改变方法而不自知。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>数值稳定性</category><category>低密度</category><category>SCAN</category>
         </item>
         <item>
-            <title>Kairos：分离式 LLM Serving 里的负载感知 Prefill Deflection</title>
-            <link>https://knight46.github.io/blog.html?slug=Load%20Aware%20Prefill%20Deflection</link>
-            <guid>https://knight46.github.io/blog.html?slug=Load%20Aware%20Prefill%20Deflection</guid>
-            <pubDate>Fri, 10 Jul 2026 00:00:00 GMT</pubDate>
-            <description>阅读 2026 年 Kairos / Load-Aware Prefill Deflection、Splitwise、vLLM 与 BulletServe 相关资料后的一篇系统笔记，解释为什么预填充-解码分离后 prefill 队列和 KV 传输会成为 TTFT 尾延迟瓶颈，以及如何用 TBT 安全的 chunked prefill 把部分请求借道 decode 节点执行。</description>
-            <category>AI Systems</category><category>AI Systems</category><category>LLM Serving</category><category>Disaggregated Inference</category><category>Scheduling</category><category>KV Cache</category><category>vLLM</category>
+            <title>第一轮小分子验证：能量接近之外还要检查什么</title>
+            <link>./blog.html?slug=GANSU-12-Small-Molecule-Validation</link>
+            <guid>./blog.html?slug=GANSU-12-Small-Molecule-Validation</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>复盘首轮 CUDA 小分子对照和水分子密度振荡，建立从运行成功到可信数值结果的验证层次。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>数值验证</category><category>SCF</category><category>小分子</category>
         </item>
         <item>
-            <title>SAC：用 CXL 重新设计稀疏注意力的 KV Cache</title>
-            <link>https://knight46.github.io/blog.html?slug=CXL%20Sparse%20KV%20Cache</link>
-            <guid>https://knight46.github.io/blog.html?slug=CXL%20Sparse%20KV%20Cache</guid>
-            <pubDate>Tue, 07 Jul 2026 00:00:00 GMT</pubDate>
-            <description>读 SAC 与 KV cache 分层管理相关工作的笔记：当长上下文 LLM 进入稀疏注意力时代，传统 RDMA 全量预取 prefix KV 的方式会浪费带宽和本地内存；CXL 的细粒度 load/store 语义则让按需读取 top-k KV 成为可能。</description>
-            <category>AI Systems</category><category>AI Systems</category><category>LLM Inference</category><category>KV Cache</category><category>CXL</category><category>Sparse Attention</category>
+            <title>CUDA 版 meta-GGA：交换相关求值与 Vxc 组装</title>
+            <link>./blog.html?slug=GANSU-11-CUDA-XC-and-Vxc</link>
+            <guid>./blog.html?slug=GANSU-11-CUDA-XC-and-Vxc</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>说明 CUDA meta-GGA 的密度量、局部泛函导数与 Vxc 组装三层职责，以及怎样处理梯度和 τ 的贡献。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>CUDA</category><category>SCAN</category><category>Vxc</category>
         </item>
         <item>
-            <title>NCCL 内部机制：从 Channels、Protocols 到 Ring/Tree</title>
-            <link>https://knight46.github.io/blog.html?slug=NCCL%20Protocols%20and%20Algorithms</link>
-            <guid>https://knight46.github.io/blog.html?slug=NCCL%20Protocols%20and%20Algorithms</guid>
-            <pubDate>Fri, 03 Jul 2026 00:00:00 GMT</pubDate>
-            <description>阅读 Demystifying NCCL、NVIDIA NCCL 文档和官方主页后的一篇系统笔记，解释 NCCL 为什么不只是一个 all-reduce API，而是一套把 GPU、CPU、NIC、拓扑、协议和算法组织成通信时间线的 runtime。</description>
-            <category>HPC</category><category>HPC</category><category>GPU Communication</category><category>NCCL</category><category>Distributed Training</category><category>Collective Communication</category><category>AI Systems</category>
+            <title>meta-GGA 的第一次 CUDA 移植尝试</title>
+            <link>./blog.html?slug=GANSU-10-First-CUDA-Port</link>
+            <guid>./blog.html?slug=GANSU-10-First-CUDA-Port</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>记录 meta-GGA 从 CPU 原型走向 CUDA 的第一阶段，重点是数据边界、内核职责与可逐层对照的实现。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>CUDA</category><category>移植</category><category>meta-GGA</category>
         </item>
         <item>
-            <title>CUDA Agent：让模型学会写高性能 CUDA Kernel</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20Agent%20Kernel%20Generation</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20Agent%20Kernel%20Generation</guid>
-            <pubDate>Sun, 28 Jun 2026 00:00:00 GMT</pubDate>
-            <description>读 CUDA Agent、KernelBench 与 PyTorch torch.compile 文档后的一篇系统笔记，解释为什么自动 CUDA kernel 生成不能只靠一次性代码补全，以及 CUDA Agent 如何用任务合成、受保护执行环境和长程强化学习训练出可验证的优化能力。</description>
-            <category>CUDA 高性能计算</category><category>CUDA</category><category>GPU</category><category>AI Systems</category><category>Kernel Generation</category><category>Reinforcement Learning</category><category>KernelBench</category>
+            <title>Python 原型里的 ρ、σ、τ 与势矩阵核对</title>
+            <link>./blog.html?slug=GANSU-09-Python-MGGA-Prototype</link>
+            <guid>./blog.html?slug=GANSU-09-Python-MGGA-Prototype</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>整理 Python meta-GGA 原型的密度量、能量积分和势矩阵检查，避免把不同泛函的能量差误作程序误差。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>Python</category><category>meta-GGA</category><category>数值验证</category>
         </item>
         <item>
-            <title>CUDA Graph 与 LLM Serving：从启动开销到动态图执行</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20Graph%20LLM%20Serving</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20Graph%20LLM%20Serving</guid>
-            <pubDate>Fri, 19 Jun 2026 00:00:00 GMT</pubDate>
-            <description>阅读 2025-2026 年 CUDA Graph、LLM serving 和 GPU 通信系统论文后的一篇工程笔记，讨论为什么 CUDA Graph 能降低 launch overhead，却仍要面对冷启动、动态 shape、通信图和 megakernel 边界。</description>
-            <category>HPC</category><category>HPC</category><category>GPU</category><category>CUDA Graph</category><category>LLM Serving</category><category>Runtime</category><category>Performance</category>
+            <title>meta-GGA 为什么需要动能密度 τ</title>
+            <link>./blog.html?slug=GANSU-08-Why-Tau</link>
+            <guid>./blog.html?slug=GANSU-08-Why-Tau</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>从动能密度和局部电子环境理解 meta-GGA，给出与自旋求和密度一致的 τ 定义及势矩阵含义。</description>
+            <category>meta-GGA 实现</category><category>GANSU</category><category>meta-GGA</category><category>τ</category><category>SCAN</category>
         </item>
         <item>
-            <title>资源感知的 GPU 训练重叠：让通信真正跑起来</title>
-            <link>https://knight46.github.io/blog.html?slug=Resource%20Aware%20GPU%20Overlap</link>
-            <guid>https://knight46.github.io/blog.html?slug=Resource%20Aware%20GPU%20Overlap</guid>
-            <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
-            <description>阅读近期 GPU 分布式训练论文后的一篇工程笔记，讨论计算-通信重叠为什么会被资源竞争削弱，以及如何用 occupancy shaping、通信流优先级和 timeline profiling 把 overlap 做成可控优化。</description>
-            <category>HPC</category><category>HPC</category><category>GPU</category><category>CUDA</category><category>Distributed Training</category><category>Communication</category><category>Performance</category>
+            <title>MP2 与双杂化泛函：B2PLYP、ωB97M(2) 的学习支线</title>
+            <link>./blog.html?slug=GANSU-07-MP2-Double-Hybrids</link>
+            <guid>./blog.html?slug=GANSU-07-MP2-Double-Hybrids</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>沿着 MP2 和双杂化的学习支线，理解 AO→MO、占据/虚轨道与能量分母，并说明它与当前 meta-GGA 主线的边界。</description>
+            <category>量子化学基础</category><category>GANSU</category><category>MP2</category><category>双杂化</category><category>AO-MO</category>
         </item>
         <item>
-            <title>MoE 推理的 Expert Parallel 通信：从 DeepEP 到 NCCL EP</title>
-            <link>https://knight46.github.io/blog.html?slug=MoE%20Expert%20Parallel%20Communication</link>
-            <guid>https://knight46.github.io/blog.html?slug=MoE%20Expert%20Parallel%20Communication</guid>
-            <pubDate>Mon, 01 Jun 2026 00:00:00 GMT</pubDate>
-            <description>阅读 2025-2026 年 MoE 推理与分布式 LLM inference 相关论文后的一篇技术笔记，梳理 DeepEP、MegaScale-Infer、TokenWeave 和 NCCL EP 如何把 expert dispatch、compute 与 combine 排成更紧凑的 GPU 通信流水线。</description>
-            <category>AI</category><category>MoE</category><category>Expert Parallelism</category><category>GPU Communication</category><category>LLM Inference</category><category>CUDA</category><category>Distributed Systems</category>
+            <title>LDA、GGA 与杂化泛函的学习笔记</title>
+            <link>./blog.html?slug=GANSU-06-LDA-GGA-Hybrids</link>
+            <guid>./blog.html?slug=GANSU-06-LDA-GGA-Hybrids</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>按输入信息和算符结构理解 LDA、GGA、meta-GGA 与杂化，避免把泛函层级当成固定的精度排行榜。</description>
+            <category>量子化学基础</category><category>GANSU</category><category>LDA</category><category>GGA</category><category>杂化泛函</category>
         </item>
         <item>
-            <title>CUDA 高性能编程（1）：从分支发散、寄存器到编译目标</title>
-            <link>https://knight46.github.io/blog.html?slug=CUDA%20Performance%20Programming%201</link>
-            <guid>https://knight46.github.io/blog.html?slug=CUDA%20Performance%20Programming%201</guid>
-            <pubDate>Fri, 29 May 2026 00:00:00 GMT</pubDate>
-            <description>第一篇 CUDA 高性能编程学习笔记，梳理 warp 分支发散、寄存器压力与 local memory spill、PTX/SASS 编译目标，以及 P-state 对性能观察的影响。</description>
-            <category>CUDA 编程基础</category><category>CUDA</category><category>GPU</category><category>Performance</category><category>Register</category><category>PTX</category><category>SASS</category>
+            <title>HF 与 Kohn–Sham DFT：研究方向为何发生变化</title>
+            <link>./blog.html?slug=GANSU-05-HF-to-KS</link>
+            <guid>./blog.html?slug=GANSU-05-HF-to-KS</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>回顾从 HF 转向 Kohn–Sham DFT 的学习过程，解释哪些计算结构可以复用、哪些能量与势必须重新处理。</description>
+            <category>量子化学基础</category><category>GANSU</category><category>DFT</category><category>Kohn–Sham</category><category>XC</category>
         </item>
         <item>
-            <title>2025-2026 GPU 超算通信优化：从 Collective Library 到 GPU-Driven Runtime</title>
-            <link>https://knight46.github.io/blog.html?slug=GPU%20Supercomputer%20Communication%202026</link>
-            <guid>https://knight46.github.io/blog.html?slug=GPU%20Supercomputer%20Communication%202026</guid>
-            <pubDate>Fri, 29 May 2026 00:00:00 GMT</pubDate>
-            <description>阅读近两年 GPU 超算通信与高性能计算方法论文后的一篇技术笔记，梳理 PCCL、Frontier All-to-All、GICC 和 HC-SpMM 背后的共同思路：把通信、计算和资源管理放到更贴近硬件时间线的位置。</description>
-            <category>HPC</category><category>HPC</category><category>GPU</category><category>Communication</category><category>Collective</category><category>Runtime</category><category>Distributed Training</category>
+            <title>HF 代码里的正交化、密度更新与收敛判断</title>
+            <link>./blog.html?slug=GANSU-04-HF-SCF-Loop</link>
+            <guid>./blog.html?slug=GANSU-04-HF-SCF-Loop</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>把 HF 循环拆成正交化、占据、密度更新和残差检查，说明为什么能量变化小不等于结果可靠。</description>
+            <category>量子化学基础</category><category>GANSU</category><category>SCF</category><category>密度矩阵</category><category>收敛</category>
         </item>
         <item>
-            <title>KVServe：让 KV Cache 压缩跟着服务状态走</title>
-            <link>https://knight46.github.io/blog.html?slug=KVServe%20KV%20Cache%20Compression</link>
-            <guid>https://knight46.github.io/blog.html?slug=KVServe%20KV%20Cache%20Compression</guid>
-            <pubDate>Fri, 29 May 2026 00:00:00 GMT</pubDate>
-            <description>读 KVServe、Dynamo、Mooncake 和 DistServe 后的一篇系统笔记，解释分离式 LLM 推理为什么会把 KV cache 推到网络关键路径上，以及 KVServe 如何用服务感知的压缩策略降低通信瓶颈。</description>
-            <category>AI</category><category>AI Systems</category><category>LLM Serving</category><category>KV Cache</category><category>Disaggregated Inference</category><category>vLLM</category>
+            <title>用 Python 跑通第一个 HF：以 H₂ 为例</title>
+            <link>./blog.html?slug=GANSU-03-Python-HF</link>
+            <guid>./blog.html?slug=GANSU-03-Python-HF</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>按分子初始化、积分和 SCF 循环复盘 Python HF 原型，明确 PySCF 与自写部分的分工。</description>
+            <category>量子化学基础</category><category>GANSU</category><category>Python</category><category>HF</category><category>PySCF</category>
         </item>
         <item>
-            <title>GPU-Initiated Communication：把通信控制权交还给 GPU</title>
-            <link>https://knight46.github.io/blog.html?slug=GPU%20Initiated%20Communication</link>
-            <guid>https://knight46.github.io/blog.html?slug=GPU%20Initiated%20Communication</guid>
-            <pubDate>Thu, 28 May 2026 00:00:00 GMT</pubDate>
-            <description>读几篇近期 HPC 与分布式 GPU 训练论文后的一篇方法笔记，重点解释 GICC 如何让 GPU 内核直接触发跨节点通信，从而减少 host 介入并提升计算-通信重叠。</description>
-            <category>HPC</category><category>High Performance Compute</category><category>GPU</category><category>Communication Overlap</category><category>Distributed Systems</category>
+            <title>基组与 Roothaan 方程：让轨道问题变成矩阵问题</title>
+            <link>./blog.html?slug=GANSU-02-Basis-and-Roothaan</link>
+            <guid>./blog.html?slug=GANSU-02-Basis-and-Roothaan</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>解释非正交 AO 基组如何把 HF 方程变成广义本征值问题，并区分轨道数、基函数数与电子数。</description>
+            <category>量子化学基础</category><category>GANSU</category><category>HF</category><category>基组</category><category>Roothaan 方程</category>
+        </item>
+        <item>
+            <title>HF 入门：多电子问题、平均场与 Slater 行列式</title>
+            <link>./blog.html?slug=GANSU-01-HF-Mean-Field</link>
+            <guid>./blog.html?slug=GANSU-01-HF-Mean-Field</guid>
+            <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+            <description>从电子哈密顿量、平均场和反对称波函数出发，重新整理最初理解 HF 时的几个关键概念。</description>
+            <category>量子化学基础</category><category>GANSU</category><category>HF</category><category>平均场</category><category>Slater 行列式</category>
         </item>
     </channel>
 </rss>

@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to AzathothLXL's Space</title>
-    <meta
-        name="description"
-        content="AzathothLXL 的个人网站，包含简介、博客、相册、简历和联系方式。"
-    >
-    <link rel="canonical" href="https://knight46.github.io/">
+    <!-- site-meta:start -->
+    <title>うさうさ</title>
+    <meta name="description" content="うさうさ 的个人博客，分享 meta-GGA 量子化学优化与 Unity 引擎的技术文章、游戏短评和生活随笔。">
+    <meta name="theme-color" content="#fff9fb">
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="AzathothLXL's Space">
-    <meta property="og:title" content="AzathothLXL's Space">
-    <meta property="og:description" content="AzathothLXL 的个人网站，整理高性能计算、GPU 系统、深度学习系统、视觉算法和计算化学相关笔记。">
-    <meta property="og:url" content="https://knight46.github.io/">
-    <meta property="og:image" content="https://knight46.github.io/src/pictures/avatar.png">
+    <meta property="og:site_name" content="うさうさ">
+    <meta property="og:title" content="うさうさ">
+    <meta property="og:description" content="うさうさ 的个人博客，分享 meta-GGA 量子化学优化与 Unity 引擎的技术文章、游戏短评和生活随笔。">
+    <meta name="robots" content="noindex">
     <meta name="twitter:card" content="summary">
-    <link rel="alternate" type="application/rss+xml" title="AzathothLXL Professional Articles" href="https://knight46.github.io/rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="うさうさ · 技术笔记" href="./rss.xml">
+    <!-- site-meta:end -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap"
         rel="stylesheet"
     >
-    <link rel="stylesheet" href="style.css?v=20261023081724">
+    <link rel="stylesheet" href="style.css?v=20261027082012">
+    <link rel="stylesheet" href="theme.css?v=20261027082012">
 </head>
 <body data-page="home">
+    <div class="site-background" id="site-background" aria-hidden="true" hidden>
+        <video id="site-background-video" muted loop playsinline preload="none" hidden></video>
+    </div>
+    <button class="background-toggle" id="background-toggle" type="button" aria-label="动态背景" aria-pressed="false" hidden>播放背景</button>
     <nav class="site-nav" aria-label="站点导航">
         <a href="#intro" data-scroll>简介</a>
-        <a href="#blogs" data-scroll>文章</a>
-        <a href="#album" data-scroll>随笔</a>
-        <a href="#resume" data-scroll>简历</a>
+        <a href="#blogs" data-scroll>技术文章</a>
+        <a href="#games" data-scroll>游戏短评</a>
+        <a href="#album" data-scroll>生活随笔</a>
+        <a href="#resume" data-scroll>个人简历</a>
         <a href="#contact" data-scroll>联系</a>
     </nav>
 
@@ -40,23 +44,20 @@
                 <div class="glass-panel hero-panel reveal">
                     <div class="avatar-column">
                         <div class="avatar-shell">
-                            <img src="./src/pictures/avatar.png" alt="AzathothLXL 的头像">
+                            <img src="./src/pictures/usausa-v2.png" alt="うさうさ 的头像" data-profile-avatar>
                         </div>
                     </div>
 
                     <div class="hero-copy">
-                        <p class="section-kicker">INTRO</p>
-                        <h1>AzathothLXL</h1>
-                        <p class="hero-lead">High Performance Computing / Computer Vision / Quantum Chemistry Computing</p>
-                        <p class="hero-description">
-                            这里整理我对高性能计算、视觉算法与计算化学的长期学习记录，也收纳一些生活照片和短随笔。
-                            主页会保持轻量、克制和可持续更新：技术内容放在文章里，日常片段留给相册。
-                        </p>
+                        <p class="section-kicker">SCIENCE &amp; CREATION</p>
+                        <h1 data-profile-title>うさうさ</h1>
+                        <p class="hero-lead" data-profile-focus>meta-GGA 量子化学优化 / Unity 引擎</p>
+                        <p class="hero-description" data-profile-bio hidden></p>
 
                         <div class="intro-lines">
-                            <p><span>focus</span> HPC runtime / GPU communication / Computer Vision / Quantum Chemistry</p>
-                            <p><span>life</span> 拼胶 / 健身 / League of Legends / 随手拍</p>
-                            <p><span>site</span> 一个持续更新的个人知识库与生活切片。</p>
+                            <p><span>focus</span><span class="intro-value" data-profile-focus>meta-GGA 量子化学优化 / Unity 引擎</span></p>
+                            <p><span>life</span><span class="intro-value" data-profile-life>游戏 / BJD / 自驾游 / 街霸6</span></p>
+                            <p><span>notes</span> 技术文章 / 游戏短评 / 生活随笔</p>
                         </div>
                     </div>
                 </div>
@@ -68,15 +69,15 @@
                 <div class="glass-panel content-panel reveal">
                     <div class="panel-head">
                         <div>
-                            <p class="panel-kicker">Latest Notes</p>
-                            <h3>近期文章</h3>
+                            <p class="panel-kicker">TECHNICAL WRITING</p>
+                            <h2>技术文章</h2>
                         </div>
-                        <span class="panel-note">Research / HPC / Systems</span>
+                        <span class="panel-note">Quantum Chemistry / Unity</span>
                     </div>
                     <div class="blog-tools" aria-label="文章筛选和搜索">
                         <label class="search-field">
                             <span>搜索文章</span>
-                            <input id="blog-search" type="search" placeholder="Search title, tag, summary..." autocomplete="off">
+                            <input id="blog-search" type="search" placeholder="搜索标题、标签或摘要…" autocomplete="off">
                         </label>
                         <div class="category-filter" id="blog-category-filter" aria-label="文章分类"></div>
                     </div>
@@ -85,15 +86,50 @@
             </div>
         </section>
 
+        <section class="page-section games-section" id="games" aria-labelledby="games-title">
+            <div class="container">
+                <div class="game-journal reveal">
+                    <div class="game-journal-masthead">
+                        <span>GAME NOTES</span>
+                        <span>玩过之后，留下一点感受</span>
+                    </div>
+                    <header class="game-journal-header">
+                        <div>
+                            <h2 id="games-title">游戏短评<span aria-hidden="true">.</span></h2>
+                            <p>关于游戏的喜欢、犹豫，和那些通关后的念念不忘。</p>
+                        </div>
+                        <div class="game-journal-total" aria-label="短评总数">
+                            <strong id="game-review-count">00</strong>
+                            <span>篇短评 / 慢慢积累</span>
+                        </div>
+                    </header>
+                    <div class="game-ledger-head" aria-hidden="true">
+                        <span>游戏 / 游玩记录</span><span>短评摘要</span><span>评分</span>
+                    </div>
+                    <div class="game-records">
+                        <div class="game-review-empty" id="game-review-empty">
+                            <svg viewBox="0 0 80 56" fill="none" aria-hidden="true">
+                                <path d="M23 12h34c8 0 12 7 14 15l3 14c2 9-8 13-14 6L49 37H31L20 47C14 54 4 50 6 41l3-14c2-8 6-15 14-15Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M20 22v14m-7-7h14M35 12l-3-6h16l-3 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="56" cy="25" r="2.5" fill="currentColor"/><circle cx="64" cy="32" r="2.5" fill="currentColor"/>
+                            </svg>
+                            <p class="game-empty-kicker">NO NOTES YET</p>
+                            <h3>游戏慢慢玩，感受慢慢写。</h3>
+                            <p>还没有游戏短评，下一段体验就留在这里。</p>
+                        </div>
+                        <ol class="game-review-list" id="game-review-list" aria-label="游戏短评列表" hidden></ol>
+                    </div>
+                    <footer class="game-journal-footer"><span>不急着给每段体验下结论。</span><span aria-hidden="true">SAVE &amp; CONTINUE ↗</span></footer>
+                </div>
+            </div>
+        </section>
+
         <section class="page-section" id="album">
             <div class="container split-layout album-layout">
                 <div class="glass-panel section-panel reveal">
                     <p class="section-kicker">PHOTO ESSAYS</p>
-                    <h2>随笔</h2>
-                    <p class="section-copy">
-                        这里不是正式相册，而是生活照片和短句记录。训练后的状态、桌面的物件、游戏后的片刻，
-                        都可以以更轻的方式留下来。
-                    </p>
+                    <h2>生活随笔</h2>
+                    <p class="section-copy">记录日常的片刻，也给技术之外的生活留一点空间。</p>
                 </div>
 
                 <div class="glass-panel content-panel reveal">
@@ -111,70 +147,61 @@
             </div>
         </section>
 
-        <section class="page-section" id="resume">
+        <section class="page-section" id="resume" aria-labelledby="resume-title">
             <div class="container">
                 <div class="glass-panel resume-panel reveal">
                     <div class="resume-title-row">
                         <div>
-                            <p class="section-kicker">RESUME</p>
-                            <h2>个人简历</h2>
+                            <p class="section-kicker">PERSONAL RESUME</p>
+                            <h2 id="resume-title">个人简历</h2>
                         </div>
-                        <button class="resume-download-button" type="button" data-open-resume-download>
-                            详细简历 Download
-                        </button>
+                        <span class="direction-badge">研究 · 工程 · 游戏开发</span>
                     </div>
-                    <div class="resume-grid" aria-label="简历概要">
-                        <div>
-                            <span>Research</span>
-                            <strong>HPC / GPU Acceleration / Scientific Computing</strong>
-                        </div>
-                        <div>
-                            <span>Education</span>
-                            <strong>Hiroshima University / Chengdu University of Technology</strong>
-                        </div>
-                        <div>
-                            <span>Engineering</span>
-                            <strong>C++ / CUDA / Python / Rust</strong>
-                        </div>
-                    </div>
-                    <div class="resume-detail-grid" aria-label="简历详细内容">
-                        <section>
-                            <h3>研究方向</h3>
-                            <ul>
-                                <li>高性能计算、GPU 加速与科学计算软件开发</li>
-                                <li>CUDA 后端实现、GPU memory layout、任务划分与 profiling</li>
-                                <li>深度学习系统、计算机视觉与量子化学计算工具链</li>
+                    <div class="cv-grid" aria-label="个人简历四个部分">
+                        <section class="cv-section" aria-labelledby="cv-research">
+                            <h3 id="cv-research">研究方向</h3>
+                            <ul class="cv-summary">
+                                <li>meta-GGA 与量子化学计算：SCAN、r²SCAN 实现及数值验证。</li>
+                                <li>CUDA / GPU 高性能计算、矩阵运算与缓存优化。</li>
+                                <li>Unity / C# 游戏开发与交互应用。</li>
                             </ul>
                         </section>
-                        <section>
-                            <h3>科研与工程经历</h3>
-                            <ul>
-                                <li>参与 GPU 加速量子化学能量计算相关科研项目</li>
-                                <li>负责 DFT/RKS 计算模块的 baseline、GPU 后端与性能优化流程</li>
-                                <li>围绕分块调度、CUDA streams、cuBLAS 与 batched GEMM 建设可验证的 HPC 模块</li>
+                        <section class="cv-section" aria-labelledby="cv-experience">
+                            <h3 id="cv-experience">科研与工程经历</h3>
+                            <ul class="cv-summary">
+                                <li>2025.10 — 至今｜GANSU：参与 meta-GGA 实现与校准，以及 GPU 矩阵化、空间分组和缓存优化。</li>
+                                <li>2021.10 — 2022.06｜NEEP：使用 C++ / Python 复现并优化符号回归算法，开展数据集测试。</li>
                             </ul>
                         </section>
-                        <section>
-                            <h3>实习与应用开发</h3>
-                            <ul>
-                                <li>参与汽车行业生成式 AI / RAG 应用开发，处理企业知识检索与问答场景</li>
-                                <li>参与工业视觉算法项目，覆盖数据处理、模型训练、部署验证与自动化脚本</li>
-                                <li>使用 PyTorch、OpenCV 与 Python 工具链支持模型迭代和页面展示优化</li>
+                        <section class="cv-section" aria-labelledby="cv-development">
+                            <h3 id="cv-development">实习与应用开发</h3>
+                            <ul class="cv-summary">
+                                <li>2026｜光荣（Koei Tecmo）实习。</li>
+                                <li>2023.05 — 2023.07｜BitSummit《激唱！銀河演説》主程序员，负责 Unity 双人节奏游戏的程序开发与集成。</li>
+                                <li>使用 C# 与 Timeline 实现谱面及音符时序控制。</li>
                             </ul>
                         </section>
-                        <section>
-                            <h3>成果与荣誉</h3>
-                            <ul>
-                                <li>参与 SCI 期刊工业视觉检测论文工作，涉及工业视觉检测与低功耗部署</li>
-                                <li>参与开源科学计算项目中的 DFT 算法构建、GPU 加速与工程集成</li>
-                                <li>获得多项国家级 / 全国级竞赛奖项，并具备日语与英语能力证书</li>
+                        <section class="cv-section" aria-labelledby="cv-achievements">
+                            <h3 id="cv-achievements">成果与荣誉</h3>
+                            <ul class="cv-summary">
+                                <li>蓝桥杯、团体程序设计天梯赛二／三等奖；ICPC 三等奖、RoboCom 选拔赛优秀奖。</li>
+                                <li>日语：持有 N1 证书；英语：持有托福、托业证书。</li>
                             </ul>
+                            <details class="cv-award-details">
+                                <summary>查看完整获奖记录</summary>
+                                <ul class="cv-awards">
+                                <li><time datetime="2022-05">2022.05</time><span>蓝桥杯竞赛 · 二等奖</span></li>
+                                <li><time datetime="2022-05">2022.05</time><span>ICPC 国际大学生程序设计竞赛 · 三等奖</span></li>
+                                <li><time datetime="2022-05">2022.05</time><span>中国高校计算机大赛 · 团体程序设计天梯赛 · 三等奖</span></li>
+                                <li><time datetime="2021-12">2021.12</time><span>RoboCom 机器人开发者大赛选拔赛 · 优秀奖</span></li>
+                                <li><time datetime="2021-05">2021.05</time><span>蓝桥杯竞赛 · 三等奖</span></li>
+                                <li><time datetime="2021-05">2021.05</time><span>中国高校计算机大赛 · 团体程序设计天梯赛 · 二等奖</span></li>
+                                </ul>
+                            </details>
                         </section>
                     </div>
                     <div class="resume-actions">
-                        <a class="ghost-button" href="#blogs" data-scroll>查看技术文章</a>
-                        <a class="ghost-button" href="https://github.com/knight46" target="_blank" rel="noreferrer">GitHub</a>
-                        <a class="ghost-button" href="mailto:AzathothLXL@outlook.com">Email</a>
+                        <a class="ghost-button" href="#blogs" data-scroll>浏览技术笔记 <span aria-hidden="true">↗</span></a>
                     </div>
                 </div>
             </div>
@@ -184,29 +211,16 @@
             <div class="container">
                 <div class="glass-panel contact-panel reveal">
                     <div class="contact-copy">
-                        <p class="section-kicker">CONTACT</p>
-                        <h2>联系方式</h2>
-                        <p class="section-copy">
-                            欢迎交流技术、研究笔记、项目想法，或者单纯看看这个个人主页接下来会变成什么样。
-                        </p>
+                        <p class="section-kicker">KEEP IN TOUCH</p>
+                        <h2>保持联系</h2>
+                        <p class="section-copy">关于量子化学、Unity，以及其他有趣的想法。</p>
                     </div>
-
                     <div class="contact-grid">
-                        <a class="contact-card" href="mailto:AzathothLXL@outlook.com">
-                            <span class="info-label">Email</span>
-                            <strong>AzathothLXL@outlook.com</strong>
-                        </a>
-                        <a class="contact-card" href="https://github.com/knight46" target="_blank" rel="noreferrer">
-                            <span class="info-label">GitHub</span>
-                            <strong>github.com/knight46</strong>
-                        </a>
-                        <div class="contact-card">
-                            <span class="info-label">WeChat</span>
-                            <strong>AzathothLXL01</strong>
-                        </div>
+                        <div class="contact-card" data-contact="email"><span class="info-label">Email</span><strong>暂未填写</strong></div>
+                        <div class="contact-card" data-contact="github"><span class="info-label">GitHub</span><strong>暂未填写</strong></div>
+                        <div class="contact-card" data-contact="wechat"><span class="info-label">WeChat</span><strong>暂未填写</strong></div>
                     </div>
-
-                    <p class="contact-footnote">© <span id="year"></span> AzathothLXL. Built as a quiet place for notes, photos and research thoughts.</p>
+                    <p class="contact-footnote">© <span id="year"></span> <span data-profile-footer>うさうさ</span> · Notes, ideas &amp; little moments.</p>
                 </div>
             </div>
         </section>
@@ -236,23 +250,8 @@
         <img id="image-fullscreen-img" alt="">
     </div>
 
-    <div class="resume-download-modal" id="resume-download-modal" hidden>
-        <button class="resume-download-backdrop" type="button" aria-label="关闭详细简历下载窗口" data-close-resume-download></button>
-        <form class="glass-panel resume-download-window" id="resume-download-form" aria-labelledby="resume-download-title">
-            <button class="modal-close" type="button" aria-label="关闭" data-close-resume-download>×</button>
-            <p class="section-kicker">PRIVATE CV</p>
-            <h3 id="resume-download-title">详细简历 Download</h3>
-            <label class="resume-password-field">
-                <span>验证密码</span>
-                <input id="resume-password" type="password" inputmode="numeric" autocomplete="off" placeholder="请输入验证密码">
-            </label>
-            <p class="resume-password-note">密码请联系本人获取</p>
-            <p class="resume-download-status" id="resume-download-status" aria-live="polite"></p>
-            <button class="resume-confirm-button" type="submit">验证并下载</button>
-        </form>
-    </div>
-
-    <script src="content-manifest.js?v=20261023081724"></script>
-    <script src="script.js?v=20261023081724"></script>
+    <script src="site-config.js?v=20261027082012"></script>
+    <script src="content-manifest.js?v=20261027082012"></script>
+    <script src="script.js?v=20261027082012"></script>
 </body>
 </html>

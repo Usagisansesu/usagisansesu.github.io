@@ -1,14 +1,16 @@
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const pageType = document.body.dataset.page || "home";
 const manifest = window.CONTENT_MANIFEST || { blogs: [], album: [] };
-const SITE_URL = "https://knight46.github.io";
+const siteConfig = window.SITE_CONFIG || {};
+const SITE_TITLE = siteConfig.name || siteConfig.title || "研究与创作";
+const SITE_URL = (siteConfig.siteUrl || new URL(".", window.location.href).href).replace(/\/$/, "");
 const SITE_ASSET_VERSION = "20261018050544";
 const RESUME_PACKET = {
     path: `src/documents/resume-packet.bin?v=${SITE_ASSET_VERSION}`,
     salt: "Ok0RgEDtDOhjYyGbH6HKXg==",
     iv: "I6cezrX1S/OeGJ7/",
     iterations: 310000,
-    filename: "AzathothLXL-detailed-resume.pdf"
+    filename: "detailed-resume.pdf"
 };
 const blogState = {
     query: "",
@@ -22,6 +24,150 @@ function escapeHtml(value) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+}
+
+function setupProfile() {
+    const setText = (selector, value) => {
+        document.querySelectorAll(selector).forEach((element) => {
+            element.textContent = value;
+        });
+    };
+    setText("[data-profile-title], [data-profile-footer]", SITE_TITLE);
+    setText("[data-profile-focus]", siteConfig.focus || "");
+    setText("[data-profile-life]", siteConfig.life || "");
+    setText("[data-profile-bio]", siteConfig.bio || "");
+    document.querySelectorAll("[data-profile-bio]").forEach((element) => {
+        element.hidden = !siteConfig.bio;
+    });
+    document.querySelectorAll("[data-profile-avatar]").forEach((element) => {
+        element.src = siteConfig.avatar || "src/pictures/profile-placeholder.svg";
+        element.alt = siteConfig.name ? `${siteConfig.name} 的头像` : "研究与创作的抽象图案";
+    });
+    document.querySelectorAll("[data-template-note]").forEach((element) => {
+        element.hidden = !siteConfig.templateContent;
+    });
+    document.querySelectorAll("[data-contact]").forEach((card) => {
+        const type = card.dataset.contact;
+        const value = siteConfig[type];
+        if (!value) return;
+        card.querySelector("strong").textContent = value;
+        const isGithub = type === "github" && /^https:\/\/github\.com\/[\w-]+\/?$/.test(value);
+        const isEmail = type === "email" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        if (!isGithub && !isEmail) return;
+        const link = document.createElement("a");
+        link.className = card.className;
+        link.href = isEmail ? `mailto:${value}` : value;
+        if (isGithub) {
+            link.target = "_blank";
+            link.rel = "noreferrer";
+        }
+        link.append(...card.childNodes);
+        card.replaceWith(link);
+    });
+}
+
+function setupBackground() {
+    const background = siteConfig.background;
+    const layer = document.getElementById("site-background");
+    const video = document.getElementById("site-background-video");
+    const toggle = document.getElementById("background-toggle");
+    if (!background?.enabled || !layer || !video || !toggle) return;
+
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobile = window.matchMedia("(max-width: 720px)");
+    const usesMobileBackground = () => mobile.matches && Boolean(background.mobileImage);
+    const storageKey = "site-background-paused";
+    let userPaused = false;
+    let explicitPlay = false;
+    let sourcesLoaded = false;
+    let failed = false;
+    try {
+        userPaused = localStorage.getItem(storageKey) === "true";
+    } catch {
+        // The background still works when browser storage is unavailable.
+    }
+
+    document.body.classList.add("has-steam-background");
+    layer.hidden = false;
+    const sources = [
+        [background.webm, "video/webm"],
+        [background.mp4, "video/mp4"]
+    ].filter(([src]) => src);
+    video.muted = true;
+
+    const updateControl = () => {
+        const playing = !video.paused && !video.ended && !failed;
+        toggle.textContent = playing ? "暂停背景" : "播放背景";
+        toggle.setAttribute("aria-pressed", String(playing));
+    };
+    const syncPlayback = () => {
+        const mobileStatic = usesMobileBackground();
+        document.body.classList.toggle("has-mobile-background", mobileStatic);
+        if (mobileStatic) {
+            layer.style.backgroundImage = `url(${JSON.stringify(background.mobileImage)})`;
+            video.pause();
+            video.hidden = true;
+            toggle.hidden = true;
+            return;
+        }
+        layer.style.backgroundImage = background.poster ? `url(${JSON.stringify(background.poster)})` : "";
+        if (background.poster && video.getAttribute("poster") !== background.poster) {
+            video.poster = background.poster;
+        }
+        toggle.hidden = failed || !sources.length;
+        if (!sources.length) return;
+        if (failed || userPaused || document.hidden || (motion.matches && !explicitPlay)) {
+            video.pause();
+            if (motion.matches && !explicitPlay) video.hidden = true;
+            updateControl();
+            return;
+        }
+        if (!sourcesLoaded) {
+            sources.forEach(([src, type]) => {
+                const source = document.createElement("source");
+                source.src = src;
+                source.type = type;
+                video.append(source);
+            });
+            sourcesLoaded = true;
+            video.load();
+        }
+        video.play().catch(() => {
+            // Keep the poster and play button if autoplay is blocked.
+            updateControl();
+        });
+    };
+    video.addEventListener("playing", () => {
+        if (usesMobileBackground()) {
+            video.pause();
+            return;
+        }
+        video.hidden = false;
+        updateControl();
+    });
+    video.addEventListener("pause", updateControl);
+    video.addEventListener("error", () => {
+        failed = true;
+        video.hidden = true;
+        toggle.hidden = true;
+    });
+    toggle.addEventListener("click", () => {
+        userPaused = !video.paused;
+        explicitPlay = !userPaused;
+        try {
+            localStorage.setItem(storageKey, String(userPaused));
+        } catch {
+            // Session-only controls remain usable.
+        }
+        syncPlayback();
+    });
+    document.addEventListener("visibilitychange", syncPlayback);
+    mobile.addEventListener("change", syncPlayback);
+    motion.addEventListener("change", () => {
+        explicitPlay = false;
+        syncPlayback();
+    });
+    syncPlayback();
 }
 
 function formatDate(dateString) {
@@ -191,6 +337,15 @@ function renderMarkdown(markdown) {
 
             if (/^([-*_]){3,}$/.test(trimmed.replace(/\s/g, ""))) {
                 return "<hr>";
+            }
+
+            const tableLines = trimmed.split("\n");
+            const cells = (line) => line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
+            if (tableLines.length >= 2 && tableLines[0].includes("|") && cells(tableLines[0]).length === cells(tableLines[1]).length && cells(tableLines[1]).every((cell) => /^:?-{3,}:?$/.test(cell))) {
+                const headings = cells(tableLines[0]);
+                const alignments = cells(tableLines[1]).map((cell) => cell.endsWith(":") ? (cell.startsWith(":") ? "center" : "right") : "left");
+                const rows = tableLines.slice(2).map(cells);
+                return `<div class="markdown-table-scroll"><table><thead><tr>${headings.map((cell, index) => `<th scope="col" data-align="${alignments[index]}">${renderInline(cell)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${headings.map((_, index) => `<td data-align="${alignments[index]}">${renderInline(row[index] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
             }
 
             const quoteLines = trimmed.split("\n");
@@ -435,9 +590,10 @@ function setupSurfaceGlow() {
 function createBlogCard(item) {
     return `
         <a class="blog-card" href="blog.html?slug=${encodeURIComponent(item.slug)}">
+            ${item.series ? `<p class="blog-series-label">${escapeHtml(item.series)} · ${String(item.seriesOrder).padStart(2, "0")}</p>` : ""}
             <h4 class="blog-card-title">${escapeHtml(item.title)}</h4>
             <div class="blog-meta">
-                <span>${formatDate(item.date)}</span>
+                <span>${item.period ? "记录于 " : ""}${formatDate(item.date)}</span>
                 <span>${escapeHtml(item.category || "未分类")}</span>
                 <span>阅读全文</span>
             </div>
@@ -448,7 +604,7 @@ function createBlogCard(item) {
 }
 
 function getBlogCategories() {
-    const preferredCategories = ["HPC", "AI", "CUDA 编程基础"];
+    const preferredCategories = ["量子化学基础", "meta-GGA 实现", "GPU 计算优化", "r²SCAN", "性能实验", "Unity"];
     const existingCategories = new Set(manifest.blogs.map((item) => item.category || "未分类"));
     const orderedCategories = preferredCategories.filter((category) => existingCategories.has(category));
     const otherCategories = Array.from(existingCategories).filter((category) => !preferredCategories.includes(category));
@@ -505,12 +661,14 @@ function renderBlogList() {
     const visibleBlogs = filterBlogs();
     blogsList.innerHTML = visibleBlogs.length
         ? visibleBlogs.map(createBlogCard).join("")
-        : '<div class="empty-state">没有找到匹配的文章。</div>';
+        : `<div class="empty-state">${manifest.blogs.length ? "没有找到匹配的文章。" : "技术文章正在整理中，接下来会记录 GANSU 的学习与开发过程。"}</div>`;
 }
 
 function setupBlogTools() {
     const search = document.getElementById("blog-search");
     const filter = document.getElementById("blog-category-filter");
+    const tools = document.querySelector(".blog-tools");
+    if (tools) tools.hidden = !manifest.blogs.length;
 
     renderBlogCategoryFilter();
 
@@ -548,6 +706,39 @@ function createAlbumCard(item) {
     `;
 }
 
+function createGameReview(item) {
+    const metadata = [item.platform, item.date ? formatDate(item.date) : ""].filter(Boolean);
+    return `
+        <li><a class="game-review-row" href="game.html?slug=${encodeURIComponent(item.slug || item.title)}">
+            <div class="game-review-identity">
+                <span class="game-review-status">${escapeHtml(item.status || "未分类")}</span>
+                <h3>${escapeHtml(item.title)}</h3>
+                ${metadata.length ? `<p class="game-review-meta">${metadata.map(escapeHtml).join(" · ")}</p>` : ""}
+            </div>
+            <div class="game-review-copy">
+                <p class="game-review-summary">${escapeHtml(item.summary || item.review)}</p>
+                <span class="game-review-open">阅读完整短评 ↗${item.images?.length ? ` · ${item.images.length} 张配图` : ""}</span>
+            </div>
+            <div class="game-review-score" aria-label="${item.score == null ? "未评分" : `${Number(item.score)} 分，满分 10 分`}">
+                <strong>${item.score == null ? "—" : Number(item.score).toFixed(1)}</strong>
+                <span>${item.score == null ? "未评分" : "/ 10.0"}</span>
+            </div>
+        </a></li>
+    `;
+}
+
+function setupGameReviews() {
+    const list = document.getElementById("game-review-list");
+    const empty = document.getElementById("game-review-empty");
+    const count = document.getElementById("game-review-count");
+    if (!list || !empty || !count) return;
+    const games = manifest.games || [];
+    count.textContent = String(games.length).padStart(2, "0");
+    list.innerHTML = games.map(createGameReview).join("");
+    list.hidden = !games.length;
+    empty.hidden = Boolean(games.length);
+}
+
 function renderHomePage() {
     const blogsList = document.getElementById("blogs-list");
     const albumList = document.getElementById("album-list");
@@ -563,6 +754,7 @@ function renderHomePage() {
             : '<div class="empty-state">随笔和照片还在整理中。</div>';
     }
 
+    setupGameReviews();
     setupAlbumModal();
 }
 
@@ -574,7 +766,7 @@ function setupImageFullscreen() {
     }
 
     let previousBodyOverflow = "";
-    const imageSelector = "#album-modal-image, #album-modal-markdown img, #detail-cover-image, #detail-markdown img";
+    const imageSelector = "#album-modal-image, #album-modal-markdown img, #detail-cover-image, #detail-markdown img, .game-detail-gallery img";
 
     const close = () => {
         shell.hidden = true;
@@ -597,7 +789,7 @@ function setupImageFullscreen() {
     };
 
     document.addEventListener("click", (event) => {
-        const sourceImage = event.target.closest(imageSelector);
+        const sourceImage = event.target.closest(imageSelector) || event.target.closest("[data-fullscreen-image]")?.querySelector("img");
         if (!sourceImage) {
             return;
         }
@@ -744,7 +936,7 @@ function renderBlogDetail() {
     const coverImage = document.getElementById("detail-cover-image");
 
     if (!article) {
-        document.title = "Article Not Found | AzathothLXL";
+        document.title = `未找到文章 | ${SITE_TITLE}`;
         titleTarget.textContent = "没有找到这篇文章";
         dateTarget.textContent = "NOT FOUND";
         markdownTarget.innerHTML = "<p>这篇文章暂时不可访问，请返回首页查看已有内容。</p>";
@@ -754,15 +946,28 @@ function renderBlogDetail() {
 
     const articleUrl = `${SITE_URL}/blog.html?slug=${encodeURIComponent(article.slug)}`;
     updatePageMeta({
-        title: `${article.title} | AzathothLXL`,
-        description: article.summary || "AzathothLXL 的技术文章。",
+        title: `${article.title} | ${SITE_TITLE}`,
+        description: article.summary || siteConfig.description,
         url: articleUrl,
-        image: article.coverImage || "src/pictures/avatar.png"
+        image: article.coverImage || siteConfig.avatar
     });
     titleTarget.textContent = article.title;
     dateTarget.textContent = formatDate(article.date);
     renderTagPills(tagsTarget, article.tags, article.category);
     markdownTarget.innerHTML = renderMarkdown(article.markdown);
+    const provenance = document.getElementById("article-provenance");
+    if (provenance && article.written) {
+        provenance.hidden = false;
+        provenance.textContent = `记录阶段：${article.period || article.date} · 补记：${formatDate(article.written)}${article.series ? ` · ${article.series} 系列 ${article.seriesOrder}` : ""}。依据当时资料回顾整理，文中会区分阶段结果与后续修订。`;
+    }
+    const seriesNav = document.getElementById("article-series-nav");
+    if (seriesNav && article.series) {
+        const ordered = manifest.blogs.filter((item) => item.series === article.series).sort((a, b) => a.seriesOrder - b.seriesOrder);
+        const index = ordered.findIndex((item) => item.slug === article.slug);
+        const link = (item, label) => item ? `<a href="blog.html?slug=${encodeURIComponent(item.slug)}"><span>${label}</span><strong>${escapeHtml(item.title)}</strong></a>` : "<span></span>";
+        seriesNav.hidden = false;
+        seriesNav.innerHTML = link(ordered[index - 1], "← 上一篇") + link(ordered[index + 1], "下一篇 →");
+    }
 
     if (article.coverImage) {
         const firstMarkdownImage = article.markdown.match(/!\[[^\]]*\]\(([^)]+)\)/)?.[1] || "";
@@ -775,6 +980,54 @@ function renderBlogDetail() {
     }
 }
 
+function renderGameDetail() {
+    const slug = new URLSearchParams(window.location.search).get("slug");
+    const game = (manifest.games || []).find((item) => item.slug === slug);
+    const title = document.getElementById("game-detail-title");
+    const meta = document.getElementById("game-detail-meta");
+    const body = document.getElementById("game-detail-body");
+    const score = document.getElementById("game-detail-score");
+    const gallery = document.getElementById("game-detail-gallery");
+    const sources = document.getElementById("game-detail-sources");
+    if (!game) {
+        document.title = `未找到游戏短评 | ${SITE_TITLE}`;
+        title.textContent = "没有找到这篇游戏短评";
+        body.innerHTML = "<p>这篇短评暂时不可访问，可以返回游戏短评查看已有记录。</p>";
+        score.hidden = true;
+        return;
+    }
+    title.textContent = game.title;
+    const metadata = [game.status, game.platform, game.date ? formatDate(game.date) : ""].filter(Boolean);
+    meta.innerHTML = metadata.map((value) => `<span>${escapeHtml(value)}</span>`).join("");
+    score.innerHTML = `<strong>${game.score == null ? "—" : Number(game.score).toFixed(1)}</strong><span>${game.score == null ? "未评分" : "/ 10.0"}</span>`;
+    score.setAttribute("aria-label", game.score == null ? "未评分" : `${Number(game.score)} 分，满分 10 分`);
+    body.innerHTML = game.review.split(/\n\s*\n/).map((paragraph) => `<p>${escapeHtml(paragraph).replace(/\n/g, "<br>")}</p>`).join("");
+    const images = game.images || [];
+    gallery.hidden = !images.length;
+    gallery.dataset.count = String(images.length);
+    gallery.innerHTML = images.map((image) => `
+        <figure>
+            <button class="game-image-button" type="button" aria-label="放大：${escapeHtml(image.alt)}" data-fullscreen-image>
+                <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy">
+            </button>
+            ${image.caption ? `<figcaption>${escapeHtml(image.caption)}</figcaption>` : ""}
+        </figure>
+    `).join("");
+    if (sources) {
+        const references = game.sources || [];
+        sources.hidden = !references.length;
+        sources.innerHTML = references.length ? `<span>游戏资料</span>${references.map((source) => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.title)} ↗</a>`).join("")}` : "";
+    }
+    updatePageMeta({
+        title: `${game.title} · 游戏短评 | ${SITE_TITLE}`,
+        description: game.summary || game.review.slice(0, 140),
+        url: `${SITE_URL}/game.html?slug=${encodeURIComponent(game.slug)}`,
+        image: images[0]?.src || siteConfig.avatar
+    });
+}
+
+setupProfile();
+setupBackground();
 updateYear();
 setupSmoothScroll();
 setupReveal();
@@ -786,6 +1039,10 @@ if (pageType === "home") {
 
 if (pageType === "blog-detail") {
     renderBlogDetail();
+}
+
+if (pageType === "game-detail") {
+    renderGameDetail();
 }
 
 setupImageFullscreen();

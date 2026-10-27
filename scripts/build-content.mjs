@@ -2,12 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const rootDir = process.cwd();
+const siteConfig = JSON.parse(await fs.readFile(path.join(rootDir, "site.config.json"), "utf8"));
+const siteTitle = siteConfig.name || siteConfig.title || "研究与创作";
 const outputFile = path.join(rootDir, "content-manifest.js");
-const siteUrl = "https://knight46.github.io";
+const siteUrl = (siteConfig.siteUrl || "").replace(/\/$/, "");
 const rssFile = path.join(rootDir, "rss.xml");
 const sitemapFile = path.join(rootDir, "sitemap.xml");
 const robotsFile = path.join(rootDir, "robots.txt");
-const htmlFiles = ["index.html", "blog.html"].map((fileName) => path.join(rootDir, fileName));
+const htmlFiles = ["index.html", "blog.html", "game.html"].map((fileName) => path.join(rootDir, fileName));
 
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif"]);
 
@@ -21,6 +23,7 @@ async function getDirectories(baseDir) {
 }
 
 function parseFrontMatter(markdown) {
+    markdown = markdown.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n");
     if (!markdown.startsWith("---\n")) {
         return {
             attributes: {},
@@ -86,7 +89,7 @@ function xmlEscape(value) {
 }
 
 function sitePath(pathname = "") {
-    return `${siteUrl}/${pathname.replace(/^\/+/, "")}`;
+    return `${siteUrl || "."}/${pathname.replace(/^\/+/, "")}`;
 }
 
 function blogUrl(blog) {
@@ -172,6 +175,10 @@ async function readBlog(folderName) {
         title: attributes.title || folderName,
         date: attributes.date || new Date().toISOString().slice(0, 10),
         category: attributes.category || "未分类",
+        period: attributes.period || "",
+        written: attributes.written || "",
+        series: attributes.series || "",
+        seriesOrder: Number(attributes.series_order) || 0,
         summary: attributes.summary || extractSummary(content, folderName),
         tags: normalizeTags(attributes.tags),
         coverImage,
@@ -210,11 +217,77 @@ async function readAlbum(folderName) {
 function sortByDateDescending(left, right) {
     const leftTime = new Date(left.date).getTime();
     const rightTime = new Date(right.date).getTime();
-    return rightTime - leftTime;
+    return rightTime - leftTime || (left.series && left.series === right.series ? right.seriesOrder - left.seriesOrder : 0);
+}
+
+async function readGameReviews() {
+    const reviews = JSON.parse(await fs.readFile(path.join(rootDir, "games", "reviews.json"), "utf8"));
+    if (!Array.isArray(reviews)) throw new Error("games/reviews.json 必须是短评数组。");
+    const slugs = new Set();
+    return Promise.all(reviews.map(async (review, index) => {
+        if (!review || typeof review.title !== "string" || !review.title.trim() || typeof review.review !== "string" || !review.review.trim()) {
+            throw new Error(`第 ${index + 1} 条游戏短评需要非空的 title 和 review。`);
+        }
+        if (review.score != null && (typeof review.score !== "number" || !Number.isFinite(review.score) || review.score < 0 || review.score > 10)) {
+            throw new Error(`第 ${index + 1} 条游戏短评的 score 必须是 0 到 10 的数字，或省略。`);
+        }
+        if (review.date && (!/^\d{4}-\d{2}-\d{2}$/.test(review.date) || Number.isNaN(new Date(review.date).getTime()))) {
+            throw new Error(`第 ${index + 1} 条游戏短评的 date 应使用 YYYY-MM-DD 格式。`);
+        }
+        const slug = String(review.slug || review.title).trim();
+        if (!slug || slugs.has(slug)) throw new Error(`第 ${index + 1} 条游戏短评的 slug 为空或重复。`);
+        slugs.add(slug);
+        if (review.images != null && (!Array.isArray(review.images) || review.images.length > 2)) {
+            throw new Error(`第 ${index + 1} 条游戏短评的 images 必须是最多两项的数组。`);
+        }
+        const images = await Promise.all((review.images || []).map(async (image, imageIndex) => {
+            const value = typeof image === "string" ? { src: image } : image;
+            if (!value || typeof value.src !== "string" || !value.src.trim()) throw new Error(`第 ${index + 1} 条游戏短评的配图缺少 src。`);
+            const src = value.src.trim();
+            if (!/^https?:\/\//i.test(src)) {
+                if (/^[a-z][a-z\d+.-]*:/i.test(src) || src.startsWith("//")) throw new Error("游戏配图应使用本地相对路径或 HTTP(S) 地址。");
+                const relative = path.relative(rootDir, path.resolve(rootDir, src));
+                if (relative.startsWith("..") || path.isAbsolute(relative)) throw new Error("游戏配图必须位于项目内。");
+                await fs.access(path.join(rootDir, src));
+            }
+            return { src, alt: String(value.alt || `${review.title.trim()} 配图 ${imageIndex + 1}`), caption: String(value.caption || "") };
+        }));
+        if (review.sources != null && !Array.isArray(review.sources)) {
+            throw new Error(`第 ${index + 1} 条游戏短评的 sources 必须是数组。`);
+        }
+        const sources = (review.sources || []).map((source) => {
+            if (!source || typeof source.title !== "string" || !source.title.trim() || typeof source.url !== "string") {
+                throw new Error(`第 ${index + 1} 条游戏短评的来源需要 title 和 url。`);
+            }
+            let url;
+            try {
+                url = new URL(source.url);
+            } catch {
+                throw new Error(`第 ${index + 1} 条游戏短评的来源地址无效。`);
+            }
+            if (!["http:", "https:"].includes(url.protocol)) {
+                throw new Error("游戏资料来源应使用 HTTP(S) 地址。");
+            }
+            return { title: source.title.trim(), url: url.href };
+        });
+        const summary = String(review.summary || review.review).trim().replace(/\s+/g, " ");
+        return {
+            slug,
+            title: review.title.trim(),
+            review: review.review.trim(),
+            summary: summary.length > 140 ? `${summary.slice(0, 140)}…` : summary,
+            images,
+            sources,
+            status: String(review.status || "未分类").trim() || "未分类",
+            platform: String(review.platform || "").trim(),
+            date: review.date || "",
+            score: review.score ?? null
+        };
+    }));
 }
 
 function buildRss(blogs) {
-    const latestDate = blogs[0]?.date || new Date().toISOString().slice(0, 10);
+    const latestDate = blogs.map((blog) => blog.written || blog.date).sort().at(-1) || new Date().toISOString().slice(0, 10);
     const items = blogs
         .map((blog) => {
             const url = blogUrl(blog);
@@ -227,7 +300,7 @@ function buildRss(blogs) {
             <title>${xmlEscape(blog.title)}</title>
             <link>${xmlEscape(url)}</link>
             <guid>${xmlEscape(url)}</guid>
-            <pubDate>${new Date(blog.date).toUTCString()}</pubDate>
+            <pubDate>${new Date(blog.written || blog.date).toUTCString()}</pubDate>
             <description>${xmlEscape(blog.summary)}</description>
             ${categories}
         </item>`;
@@ -237,9 +310,9 @@ function buildRss(blogs) {
     return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
     <channel>
-        <title>AzathothLXL Professional Articles</title>
-        <link>${siteUrl}/</link>
-        <description>高性能计算、GPU 系统、深度学习系统和相关研究笔记。</description>
+        <title>${xmlEscape(siteTitle)} · 技术笔记</title>
+        <link>${xmlEscape(sitePath())}</link>
+        <description>${xmlEscape(siteConfig.description)}</description>
         <language>zh-CN</language>
         <lastBuildDate>${new Date(latestDate).toUTCString()}</lastBuildDate>
 ${items}
@@ -248,7 +321,7 @@ ${items}
 `;
 }
 
-function buildSitemap(blogs) {
+function buildSitemap(blogs, games = []) {
     const staticUrls = [
         {
             loc: sitePath(""),
@@ -262,8 +335,13 @@ function buildSitemap(blogs) {
         lastmod: blog.date,
         priority: "0.8"
     }));
+    const gameUrls = games.map((game) => ({
+        loc: sitePath(`game.html?slug=${encodeURIComponent(game.slug)}`),
+        lastmod: game.date || new Date().toISOString().slice(0, 10),
+        priority: "0.7"
+    }));
 
-    const urls = [...staticUrls, ...blogUrls]
+    const urls = (siteUrl ? [...staticUrls, ...blogUrls, ...gameUrls] : [])
         .map((entry) => `    <url>
         <loc>${xmlEscape(entry.loc)}</loc>
         <lastmod>${xmlEscape(entry.lastmod)}</lastmod>
@@ -282,7 +360,7 @@ function buildRobots() {
     return `User-agent: *
 Allow: /
 
-Sitemap: ${sitePath("sitemap.xml")}
+${siteUrl ? `Sitemap: ${sitePath("sitemap.xml")}` : "# Configure siteUrl in site.config.json before publishing."}
 `;
 }
 
@@ -294,8 +372,27 @@ async function updateAssetVersions(version) {
     await Promise.all(
         htmlFiles.map(async (htmlFile) => {
             const html = await fs.readFile(htmlFile, "utf8");
+            const isHome = path.basename(htmlFile) === "index.html";
+            const isGame = path.basename(htmlFile) === "game.html";
+            const title = isHome ? siteTitle : `${isGame ? "游戏短评" : "技术笔记"} | ${siteTitle}`;
+            const pageUrl = sitePath(isHome ? "" : path.basename(htmlFile));
+            const metadata = `<!-- site-meta:start -->
+    <title>${xmlEscape(title)}</title>
+    <meta name="description" content="${xmlEscape(siteConfig.description)}">
+    <meta name="theme-color" content="#fff9fb">
+    <meta property="og:type" content="${isHome ? "website" : "article"}">
+    <meta property="og:site_name" content="${xmlEscape(siteTitle)}">
+    <meta property="og:title" content="${xmlEscape(title)}">
+    <meta property="og:description" content="${xmlEscape(siteConfig.description)}">
+    ${siteUrl ? `<link rel="canonical" href="${xmlEscape(pageUrl)}">\n    <meta property="og:url" content="${xmlEscape(pageUrl)}">\n    <meta property="og:image" content="${xmlEscape(sitePath(siteConfig.avatar))}">` : '<meta name="robots" content="noindex">'}
+    <meta name="twitter:card" content="summary">
+    <link rel="alternate" type="application/rss+xml" title="${xmlEscape(siteTitle)} · 技术笔记" href="${xmlEscape(sitePath("rss.xml"))}">
+    <!-- site-meta:end -->`;
             const updatedHtml = html
+                .replace(/<!-- site-meta:start -->[\s\S]*?<!-- site-meta:end -->/, metadata)
                 .replace(/(href="style\.css)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
+                .replace(/(href="theme\.css)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
+                .replace(/(src="site-config\.js)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
                 .replace(/(src="content-manifest\.js)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`)
                 .replace(/(src="script\.js)(?:\?v=[^"]*)?"/g, `$1?v=${version}"`);
 
@@ -310,23 +407,26 @@ async function buildManifest() {
 
     const blogs = (await Promise.all(blogFolders.map(readBlog))).filter(Boolean).sort(sortByDateDescending);
     const album = (await Promise.all(albumFolders.map(readAlbum))).filter(Boolean).sort(sortByDateDescending);
+    const games = await readGameReviews();
     const generatedAt = new Date();
 
     const manifest = {
         generatedAt: generatedAt.toISOString(),
         blogs,
-        album
+        album,
+        games
     };
 
     const output = `window.CONTENT_MANIFEST = ${JSON.stringify(manifest, null, 4)};\n`;
+    await fs.writeFile(path.join(rootDir, "site-config.js"), `window.SITE_CONFIG = ${JSON.stringify(siteConfig, null, 4)};\n`, "utf8");
     await fs.writeFile(outputFile, output, "utf8");
     await fs.writeFile(rssFile, buildRss(blogs), "utf8");
-    await fs.writeFile(sitemapFile, buildSitemap(blogs), "utf8");
+    await fs.writeFile(sitemapFile, buildSitemap(blogs, games), "utf8");
     await fs.writeFile(robotsFile, buildRobots(), "utf8");
     await updateAssetVersions(buildAssetVersion(generatedAt));
 
     console.log(
-        `Generated ${path.basename(outputFile)}, ${path.basename(rssFile)}, ${path.basename(sitemapFile)}, ${path.basename(robotsFile)}, and refreshed asset versions with ${blogs.length} blog(s) and ${album.length} album item(s).`
+        `Generated ${path.basename(outputFile)}, ${path.basename(rssFile)}, ${path.basename(sitemapFile)}, ${path.basename(robotsFile)}, and refreshed asset versions with ${blogs.length} blog(s), ${album.length} album item(s), and ${games.length} game review(s).`
     );
 }
 
