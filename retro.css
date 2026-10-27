@@ -36,7 +36,7 @@
     --desktop-shadow: #8761d1;
     --raised: inset 1px 1px #fff8ff, inset -1px -1px #b38aff, inset 2px 2px #fcecff;
     --sunken: inset 1px 1px #7548ce, inset -1px -1px #fff8ff, inset 2px 2px #e7cfff;
-    --window-shadow: 4px 4px 0 #acecff, 6px 6px 0 #5d35d2;
+    --window-shadow: 3px 3px 0 #b899d8;
 }
 
 body, button, input, textarea, select { font-family: var(--pixel-font); }
@@ -71,25 +71,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
     isolation: isolate;
     border: 2px solid #5d35d2;
     border-radius: 0;
-    background: #fff8ff;
-    box-shadow: inset 0 0 0 3px #acecff, inset 0 0 0 5px #7548ce, var(--window-shadow);
+    background: #acecff;
+    box-shadow: var(--window-shadow);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
 .blog-card::before, .blog-card::after, .album-card::before, .album-card::after,
 .contact-card::before, .contact-card::after { display: none; }
 .hero-panel, .section-panel, .content-panel, .resume-panel, .contact-panel, .detail-shell, .game-journal { padding-top: 72px; padding-bottom: 36px; }
+.blog-layout .content-panel { padding: 82px 24px 36px; }
 /* Separate the title strip, inset content pane and bottom window rail. */
 .glass-panel::before, .game-journal::before {
     content: "";
     display: block;
     position: absolute;
-    inset: 48px 7px 21px;
+    inset: 48px 7px 20px;
     z-index: -1;
     border: 1px solid #7548ce;
     border-radius: 0;
-    background: none;
-    box-shadow: inset 1px 1px #fff8ff;
+    background: #fff8ff;
+    box-shadow: none;
     opacity: 1;
     transform: none;
     animation: none;
@@ -99,17 +100,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
     content: "";
     display: block;
     position: absolute;
-    inset: auto 7px 7px;
+    inset: auto auto 5px 7px;
+    width: 60px;
     height: 8px;
     z-index: -1;
-    border: 1px solid #7548ce;
+    border: 0;
     border-radius: 0;
-    background:
-        linear-gradient(#f2d4f2, #f2d4f2) 0 0 / 24px 100% no-repeat,
-        linear-gradient(#7548ce, #7548ce) 24px 0 / 1px 100% no-repeat,
-        repeating-linear-gradient(90deg, #7548ce 0 1px, #fff8ff 1px 4px, #7548ce 4px 5px, transparent 5px 7px) 28px 1px / 21px 4px no-repeat,
-        repeating-linear-gradient(135deg, #7548ce 0 1px, transparent 1px 3px) right 1px center / 7px 6px no-repeat,
-        #acecff;
+    background: url("src/ui/window-footer.svg") left center / 60px 8px no-repeat;
     box-shadow: none;
     opacity: 1;
     transform: none;
@@ -201,7 +198,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .contact-footnote { border-top: 2px solid #ceb5ee; padding-top: 12px; }
 
 /* Game journal as a classic list view, retaining its distinct editorial layout. */
-.game-journal { background: #fff8ff; }
+.game-journal { background: #acecff; }
 .game-journal-masthead { color: #7040b2; border-bottom: 2px solid #ceb5ee; }
 .game-journal-header h2 { font-size: clamp(2rem, 4vw, 3.1rem); }
 .game-journal-total strong { font: 400 36px/1 var(--pixel-mono); color: #8b5bd6; }
@@ -216,7 +213,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .game-journal-footer { border-top: 2px solid #ceb5ee; }
 
 /* Reading windows stay quiet enough for long technical articles. */
-.detail-shell { background: #fff8ff; }
+.detail-shell { background: #acecff; }
 .detail-header h1 { font-size: clamp(1.8rem, 3.6vw, 3rem); line-height: 1.35; }
 .detail-markdown { padding: 24px 28px; background: #fff8ff; box-shadow: var(--sunken); overflow-wrap: anywhere; }
 .markdown-body pre { border: 1px solid #b590df; border-radius: 0; background: #f8efff; box-shadow: inset 1px 1px #fff; }
@@ -225,7 +222,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .detail-date { font-family: var(--pixel-mono); }
 
 /* Photo viewer: short text is centered; a long body shrinks into a scroll pane. */
-.modal-window { padding: 60px 20px 34px; border-radius: 0; background: #fff8ff; }
+.modal-window { padding: 60px 20px 34px; border-radius: 0; background: #acecff; }
 .modal-window .retro-titlebar { padding-right: 46px; }
 .modal-close { top: 10px; right: 10px; width: 26px; height: 26px; min-height: 0; font: bold 1.35rem/1 monospace; padding: 0; }
 .modal-media { border-radius: 0; border: 1px solid #7548ce; background: #fff8ff; box-shadow: var(--sunken); }
@@ -281,6 +278,7 @@ h1, h2, h3, h4, strong, .section-kicker, .panel-kicker, .info-label,
     .site-nav a { min-height: 36px; padding: 0 11px; font-size: 0.77rem; }
     .page-section { padding-top: 65px; }
     .hero-panel, .section-panel, .content-panel, .resume-panel, .contact-panel, .detail-shell, .game-journal { padding: 60px 18px 32px; }
+    .blog-layout .content-panel { padding: 76px 18px 32px; }
     .retro-titlebar { height: 29px; font-size: 12px; padding: 0 7px; }
     .retro-titlebar > :last-child:not(:first-child) { display: none; }
     .avatar-shell { width: min(200px, 60vw); }
