@@ -1,5 +1,5 @@
 window.CONTENT_MANIFEST = {
-    "generatedAt": "2026-10-27T08:37:28.345Z",
+    "generatedAt": "2026-10-27T13:17:12.720Z",
     "blogs": [
         {
             "slug": "LeetCode-3963-Construct-Exactly-One-Path",
@@ -793,6 +793,15 @@ window.CONTENT_MANIFEST = {
             "tags": [],
             "image": "album/Mizuki-2026-10-02/mizuki.jpg",
             "markdown": "みずき数量增加了！"
+        },
+        {
+            "slug": "Kaguya-2026-09-27",
+            "title": "去看了超时空辉夜姬",
+            "date": "2026-09-27",
+            "summary": "感觉是这段时间看的最好看的电影了  彩花可爱捏(*๓´╰╯`๓)♡",
+            "tags": [],
+            "image": "album/Kaguya-2026-09-27/01-characters.jpg",
+            "markdown": "感觉是这段时间看的最好看的电影了  彩花可爱捏(*๓´╰╯`๓)♡\n\n![超时空辉夜姬应援扇背面](album/Kaguya-2026-09-27/02-lettering.jpg)"
         }
     ],
     "games": [
