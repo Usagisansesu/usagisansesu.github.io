@@ -237,6 +237,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .modal-nav:hover { transform: translateY(-50%); }
 .album-image-counter { border-radius: 0; border: 1px solid #8754ce; background: #f2d4f2; color: #5d35a2; box-shadow: inset 1px 1px #fff; }
 .album-image-nav, .modal-nav { font-family: monospace; font-size: 1.1rem; }
+/* Keep photos unobstructed until a mouse approaches the image pane. */
+@media (hover: hover) and (pointer: fine) {
+    .modal-media .album-image-nav, .modal-media .album-image-counter {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 160ms ease;
+    }
+    .modal-media:hover .album-image-nav, .modal-media:hover .album-image-counter,
+    .modal-media:has(:focus-visible) .album-image-nav, .modal-media:has(:focus-visible) .album-image-counter {
+        opacity: 1;
+    }
+    .modal-media:hover .album-image-nav, .modal-media:has(:focus-visible) .album-image-nav {
+        pointer-events: auto;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .modal-media .album-image-nav, .modal-media .album-image-counter { transition: none; }
+}
 .modal-close::after { content: ""; position: absolute; inset: 2px; border: 1px solid #b38aff; pointer-events: none; }
 .modal-backdrop { background: rgba(71, 48, 90, 0.22); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
 .image-fullscreen-backdrop { background: rgba(239, 230, 246, 0.97); }
