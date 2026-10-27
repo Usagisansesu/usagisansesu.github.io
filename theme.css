@@ -55,7 +55,13 @@ body.has-steam-background::after {
 }
 
 /* Keep the supplied illustration intact; soften it beneath the reading panels. */
-body.has-mobile-background .site-background { background-position: center center; }
+body.has-mobile-background .site-background {
+    /* Keep cover scaling stable while mobile browser bars expand or collapse. */
+    bottom: auto;
+    height: 100vh;
+    height: 100lvh;
+    background-position: center center;
+}
 body.has-steam-background.has-mobile-background::before { background: rgba(255, 250, 253, 0.48); }
 body.has-steam-background.has-mobile-background::after { background: none; }
 

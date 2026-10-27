@@ -48,6 +48,8 @@ node scripts/serve.mjs
 
 手机端（宽度不超过 720px）改用用户提供的月亮插画 `src/backgrounds/mobile-moon.jpg`，由 `background.mobileImage` 配置。原图上叠加 48% 的浅白色蒙层，使背景淡化；数值在 `theme.css` 的 `has-mobile-background::before` 中调整。手机首次打开不会加载桌面视频，也不显示播放按钮；调整窗口跨越断点时会自动切换。
 
+移动端静态背景层使用稳定的 `100lvh` 高度（旧浏览器回退到 `100vh`），避免地址栏在滑动时展开、收起导致 `cover` 背景反复缩放；横竖屏切换时仍会随视口适配。
+
 要恢复纯浅粉背景，把 `site.config.json` 中 `background.enabled` 改成 `false`，再运行生成命令。可以替换同名媒体文件，或修改配置中的路径。下载资源不等于已取得站外使用许可，公开发布前请确认素材权利人的使用条件。
 
 ## 技术文章与生活随笔
