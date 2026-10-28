@@ -5,7 +5,15 @@
         <link>./</link>
         <description>うさうさ 的个人博客，分享 meta-GGA 量子化学优化与 Unity 引擎的技术文章、游戏短评和生活随笔。</description>
         <language>zh-CN</language>
-        <lastBuildDate>Tue, 27 Oct 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 28 Oct 2026 00:00:00 GMT</lastBuildDate>
+        <item>
+            <title>每日一题 · 3882. 网格图中最小异或路径</title>
+            <link>./blog.html?slug=LeetCode-3882-Minimum-XOR-Path-in-a-Grid</link>
+            <guid>./blog.html?slug=LeetCode-3882-Minimum-XOR-Path-in-a-Grid</guid>
+            <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+            <description>用集合记录到达每个格子时所有可能的路径异或值，从上方与左方转移并去重，最后取终点集合中的最小值。</description>
+            <category>每日一题</category><category>LeetCode</category><category>C++</category><category>动态规划</category><category>异或</category><category>网格</category>
+        </item>
         <item>
             <title>每日一题 · 3963. 构造恰好一条路径的网格</title>
             <link>./blog.html?slug=LeetCode-3963-Construct-Exactly-One-Path</link>
