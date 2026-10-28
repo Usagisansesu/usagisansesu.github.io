@@ -14,6 +14,9 @@
     font-display: swap;
 }
 :root {
+    --pixel-cursor: url("src/cursors/pixel-arrow.svg") 3 2, default;
+    --pixel-link-cursor: url("src/cursors/pixel-hand.svg") 10 3, pointer;
+    --pixel-text-cursor: url("src/cursors/pixel-text.svg") 12 16, text;
     --pixel-font: "Fusion Pixel", "Microsoft YaHei", sans-serif;
     --pixel-mono: "Fusion Pixel Mono", monospace;
     --bg: #fff8ff;
@@ -41,6 +44,11 @@
 
 body, button, input, textarea, select { font-family: var(--pixel-font); }
 body { font-size: 18px; font-synthesis: none; }
+html, body { cursor: var(--pixel-cursor); }
+body :is(a, button, summary, [role="button"]) { cursor: var(--pixel-link-cursor); }
+body :is(input, textarea, [contenteditable="true"]), .markdown-body, .game-detail-body { cursor: var(--pixel-text-cursor); }
+body :is(#album-modal-image, #detail-cover-image, #image-fullscreen-img, .markdown-body img) { cursor: var(--pixel-link-cursor); }
+body button:disabled, body [aria-disabled="true"] { cursor: var(--pixel-cursor); }
 ::selection { background: #c9b0e4; color: #292139; }
 button, input, a { -webkit-tap-highlight-color: rgba(164, 119, 191, 0.16); }
 a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
@@ -350,7 +358,7 @@ h1, h2, h3, h4, strong, .section-kicker, .panel-kicker, .info-label,
 }
 .blog-page-button:hover:not(:disabled) { background: #edb2ff; }
 .blog-page-button[aria-current="page"] { background: #acecff; box-shadow: var(--sunken); }
-.blog-page-button:disabled { opacity: 0.45; cursor: default; }
+.blog-page-button:disabled { opacity: 0.45; cursor: var(--pixel-cursor); }
 .blog-page-ellipsis { padding: 0 2px; }
 .blog-layout .blog-series-label { margin: 0; font-size: 12px; line-height: inherit; }
 
