@@ -1,5 +1,5 @@
 window.CONTENT_MANIFEST = {
-    "generatedAt": "2026-10-27T14:44:57.005Z",
+    "generatedAt": "2026-10-28T02:23:32.568Z",
     "blogs": [
         {
             "slug": "LeetCode-3963-Construct-Exactly-One-Path",

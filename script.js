@@ -14,8 +14,11 @@ const RESUME_PACKET = {
 };
 const blogState = {
     query: "",
-    category: "全部"
+    category: "全部",
+    page: 1
 };
+const BLOG_PAGE_SIZE = 6;
+const desktopBlogLayout = window.matchMedia("(min-width: 721px)");
 
 function escapeHtml(value) {
     return String(value)
@@ -590,12 +593,12 @@ function setupSurfaceGlow() {
 function createBlogCard(item) {
     return `
         <a class="blog-card" href="blog.html?slug=${encodeURIComponent(item.slug)}">
-            ${item.series ? `<p class="blog-series-label">${escapeHtml(item.series)} · ${String(item.seriesOrder).padStart(2, "0")}</p>` : ""}
             <h4 class="blog-card-title">${escapeHtml(item.title)}</h4>
             <div class="blog-meta">
+                ${item.series ? `<span class="blog-series-label">${escapeHtml(item.series)} · ${String(item.seriesOrder).padStart(2, "0")}</span>` : ""}
                 <span>${item.period ? "记录于 " : ""}${formatDate(item.date)}</span>
                 <span>${escapeHtml(item.category || "未分类")}</span>
-                <span>阅读全文</span>
+                <span class="blog-read-label">阅读全文</span>
             </div>
             <p class="blog-summary">${escapeHtml(item.summary)}</p>
             ${renderMiniTags(item.tags)}
@@ -652,16 +655,42 @@ function renderBlogCategoryFilter() {
         .join("");
 }
 
-function renderBlogList() {
+function renderBlogList({ focusPage = false } = {}) {
     const blogsList = document.getElementById("blogs-list");
     if (!blogsList) {
         return;
     }
 
-    const visibleBlogs = filterBlogs();
+    const filteredBlogs = filterBlogs();
+    const totalPages = Math.max(1, Math.ceil(filteredBlogs.length / BLOG_PAGE_SIZE));
+    blogState.page = Math.min(Math.max(1, blogState.page), totalPages);
+    const visibleBlogs = desktopBlogLayout.matches
+        ? filteredBlogs.slice((blogState.page - 1) * BLOG_PAGE_SIZE, blogState.page * BLOG_PAGE_SIZE)
+        : filteredBlogs;
+    blogsList.classList.toggle("has-few-blogs", visibleBlogs.length < 4);
     blogsList.innerHTML = visibleBlogs.length
         ? visibleBlogs.map(createBlogCard).join("")
         : `<div class="empty-state">${manifest.blogs.length ? "没有找到匹配的文章。" : "技术文章正在整理中，接下来会记录 GANSU 的学习与开发过程。"}</div>`;
+    blogsList.scrollTop = 0;
+
+    const pagination = document.getElementById("blog-pagination");
+    if (!pagination) return;
+    pagination.hidden = !desktopBlogLayout.matches || !filteredBlogs.length;
+    if (pagination.hidden) return;
+    // Keep page controls usable even after the archive grows to many pages.
+    const pageNumbers = totalPages <= 7
+        ? Array.from({ length: totalPages }, (_, index) => index + 1)
+        : Array.from(new Set([1, totalPages, blogState.page - 1, blogState.page, blogState.page + 1]))
+            .filter((page) => page >= 1 && page <= totalPages).sort((a, b) => a - b);
+    const pageLinks = pageNumbers.map((page, index) => `${index && page - pageNumbers[index - 1] > 1 ? '<span class="blog-page-ellipsis" aria-hidden="true">…</span>' : ""}<button class="blog-page-button" type="button" data-blog-page="${page}" aria-label="第 ${page} 页"${page === blogState.page ? ' aria-current="page"' : ""}>${page}</button>`).join("");
+    pagination.innerHTML = `
+        <span class="blog-pagination-summary" role="status" aria-live="polite">共 ${filteredBlogs.length} 篇 · 第 ${blogState.page} / ${totalPages} 页</span>
+        <div class="blog-pagination-buttons">
+            <button class="blog-page-button" type="button" data-blog-page="${blogState.page - 1}"${blogState.page === 1 ? " disabled" : ""}>◀ 上一页</button>
+            ${pageLinks}
+            <button class="blog-page-button" type="button" data-blog-page="${blogState.page + 1}"${blogState.page === totalPages ? " disabled" : ""}>下一页 ▶</button>
+        </div>`;
+    if (focusPage) pagination.querySelector('[aria-current="page"]')?.focus({ preventScroll: true });
 }
 
 function setupBlogTools() {
@@ -669,12 +698,34 @@ function setupBlogTools() {
     const filter = document.getElementById("blog-category-filter");
     const tools = document.querySelector(".blog-tools");
     if (tools) tools.hidden = !manifest.blogs.length;
+    const blogsList = document.getElementById("blogs-list");
+    let pagination = document.getElementById("blog-pagination");
+    // Allow cached earlier markup to work with the new pagination script.
+    if (blogsList && !pagination) {
+        pagination = document.createElement("nav");
+        pagination.id = "blog-pagination";
+        pagination.className = "blog-pagination";
+        pagination.setAttribute("aria-label", "技术文章分页");
+        pagination.hidden = true;
+        blogsList.after(pagination);
+    }
+    pagination?.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-blog-page]");
+        if (!button || button.disabled) return;
+        blogState.page = Number(button.dataset.blogPage);
+        renderBlogList({ focusPage: true });
+    });
+    desktopBlogLayout.addEventListener("change", () => {
+        blogState.page = 1;
+        renderBlogList();
+    });
 
     renderBlogCategoryFilter();
 
     if (search) {
         search.addEventListener("input", () => {
             blogState.query = search.value;
+            blogState.page = 1;
             renderBlogList();
         });
     }
@@ -687,6 +738,7 @@ function setupBlogTools() {
             }
 
             blogState.category = button.dataset.category;
+            blogState.page = 1;
             renderBlogCategoryFilter();
             renderBlogList();
         });
