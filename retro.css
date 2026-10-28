@@ -14,7 +14,7 @@
     font-display: swap;
 }
 :root {
-    --pixel-cursor: url("src/cursors/pixel-arrow.svg") 3 2, default;
+    --pixel-cursor: url("src/cursors/pixel-arrow.svg?v=2") 3 2, default;
     --pixel-link-cursor: url("src/cursors/pixel-hand.svg") 10 3, pointer;
     --pixel-text-cursor: url("src/cursors/pixel-text.svg") 12 16, text;
     --pixel-font: "Fusion Pixel", "Microsoft YaHei", sans-serif;
