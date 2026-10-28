@@ -395,22 +395,24 @@ h1, h2, h3, h4, strong, .section-kicker, .panel-kicker, .info-label,
     .blog-layout .blog-card-title { font-size: 14px; }
 }
 
-/* Phones use natural page scrolling so the archive is not trapped under its tools. */
+/* Phones keep a bounded scroll pane with room for about four article cards. */
 @media (max-width: 720px) {
     .blog-layout .content-panel { height: auto; min-height: 0; }
-    /* A long archive can never reach the old 14% reveal intersection threshold. */
+    /* Show the tall mobile window without waiting for a large intersection ratio. */
     .blog-layout .content-panel.reveal { opacity: 1; transform: none; transition: none; }
     .blog-layout .blog-scroll {
         flex: none;
-        height: auto;
+        height: 840px;
         grid-template-columns: minmax(0, 1fr);
         grid-template-rows: none;
         grid-auto-rows: max-content;
         gap: 12px;
         align-content: start;
-        overflow: visible;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior-y: auto;
     }
-    .blog-layout .blog-scroll.has-few-blogs { min-height: 180px; }
+    .blog-layout .blog-scroll.has-few-blogs { height: auto; min-height: 180px; overflow: visible; }
     .blog-layout .blog-card { min-height: 180px; padding: 12px; gap: 7px; }
     .blog-layout .blog-card-title { font-size: 18px; line-height: 1.35; }
     .blog-layout .blog-meta { margin: 0; font-size: 12px; line-height: 1.5; gap: 3px 6px; }
