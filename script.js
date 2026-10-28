@@ -900,6 +900,7 @@ function setupAlbumModal() {
         media.append(imageCounter);
     }
     const imageButtons = modal.querySelectorAll("[data-album-image-nav]");
+    const albumButtons = modal.querySelectorAll("[data-album-nav]");
     let currentAlbumIndex = -1;
     let currentImageIndex = 0;
     let currentImages = [];
@@ -956,7 +957,11 @@ function setupAlbumModal() {
         markdown.innerHTML = item.markdown?.trim() ? renderMarkdown(item.markdown) : "";
         markdown.scrollTop = 0;
         showImage();
-        modal.querySelectorAll("[data-album-nav]").forEach((button) => { button.hidden = manifest.album.length < 2; });
+        albumButtons.forEach((button) => {
+            button.hidden = button.dataset.albumNav === "prev"
+                ? currentAlbumIndex <= 0
+                : currentAlbumIndex >= manifest.album.length - 1;
+        });
         modal.hidden = false;
         if (pageStack) {
             pageStack.style.overflow = "hidden";
@@ -973,7 +978,10 @@ function setupAlbumModal() {
         }
 
         const offset = direction === "next" ? 1 : -1;
-        const nextIndex = (currentAlbumIndex + offset + manifest.album.length) % manifest.album.length;
+        const nextIndex = currentAlbumIndex + offset;
+        if (nextIndex < 0 || nextIndex >= manifest.album.length) {
+            return;
+        }
         openModal(manifest.album[nextIndex], nextIndex);
     };
 
@@ -999,7 +1007,7 @@ function setupAlbumModal() {
         }
     });
 
-    modal.querySelectorAll("[data-album-nav]").forEach((element) => {
+    albumButtons.forEach((element) => {
         element.addEventListener("click", () => switchAlbum(element.dataset.albumNav));
     });
 
