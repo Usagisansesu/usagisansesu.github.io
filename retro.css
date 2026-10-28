@@ -91,6 +91,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .contact-card::before, .contact-card::after { display: none; }
 .hero-panel, .section-panel, .content-panel, .resume-panel, .contact-panel, .detail-shell, .game-journal { padding-top: 72px; padding-bottom: 36px; }
 .blog-layout .content-panel { padding: 82px 24px 36px; }
+/* Keep the window chrome stationary while expanded resume content scrolls. */
+.resume-body { min-width: 0; }
+.resume-body:focus-visible { outline: 1px dotted #493557; outline-offset: 3px; }
+@media (min-width: 721px) {
+    #resume .resume-panel { display: flex; flex-direction: column; overflow: hidden; scrollbar-gutter: auto; }
+    #resume .resume-body { min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-gutter: stable; padding-right: 12px; margin-right: -12px; }
+}
 /* Separate the title strip, inset content pane and bottom window rail. */
 .glass-panel::before, .game-journal::before {
     content: "";
