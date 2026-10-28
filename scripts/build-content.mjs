@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { buildJapaneseSite } from "./build-japanese.mjs";
 
 const rootDir = process.cwd();
 const siteConfig = JSON.parse(await fs.readFile(path.join(rootDir, "site.config.json"), "utf8"));
@@ -359,7 +360,9 @@ function buildSitemap(blogs, games = []) {
         priority: "0.7"
     }));
 
-    const urls = (siteUrl ? [...staticUrls, ...blogUrls, ...gameUrls] : [])
+    const baseUrls = [...staticUrls, ...blogUrls, ...gameUrls];
+    const japaneseUrls = baseUrls.map((entry) => ({ ...entry, loc: entry.loc.replace(`${siteUrl}/`, `${siteUrl}/ja/`) }));
+    const urls = (siteUrl ? [...baseUrls, ...japaneseUrls] : [])
         .map((entry) => `    <url>
         <loc>${xmlEscape(entry.loc)}</loc>
         <lastmod>${xmlEscape(entry.lastmod)}</lastmod>
@@ -405,6 +408,8 @@ async function updateAssetVersions(version) {
     ${siteUrl ? `<link rel="canonical" href="${xmlEscape(pageUrl)}">\n    <meta property="og:url" content="${xmlEscape(pageUrl)}">\n    <meta property="og:image" content="${xmlEscape(sitePath(siteConfig.avatar))}">` : '<meta name="robots" content="noindex">'}
     <meta name="twitter:card" content="summary">
     <link rel="alternate" type="application/rss+xml" title="${xmlEscape(siteTitle)} · 技术笔记" href="${xmlEscape(sitePath("rss.xml"))}">
+    <link rel="alternate" hreflang="zh-CN" href="${xmlEscape(sitePath(path.basename(htmlFile)))}">
+    <link rel="alternate" hreflang="ja" href="${xmlEscape(sitePath(`ja/${path.basename(htmlFile)}`))}">
     <!-- site-meta:end -->`;
             const updatedHtml = html
                 .replace(/<!-- site-meta:start -->[\s\S]*?<!-- site-meta:end -->/, metadata)
@@ -443,6 +448,7 @@ async function buildManifest() {
     await fs.writeFile(sitemapFile, buildSitemap(blogs, games), "utf8");
     await fs.writeFile(robotsFile, buildRobots(), "utf8");
     await updateAssetVersions(buildAssetVersion(generatedAt));
+    await buildJapaneseSite({ rootDir, siteConfig, manifest });
 
     console.log(
         `Generated ${path.basename(outputFile)}, ${path.basename(rssFile)}, ${path.basename(sitemapFile)}, ${path.basename(robotsFile)}, and refreshed asset versions with ${blogs.length} blog(s), ${album.length} album item(s), and ${games.length} game review(s).`

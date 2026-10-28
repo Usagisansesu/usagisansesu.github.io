@@ -72,6 +72,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .site-nav a { border: 2px solid #7548ce; border-radius: 0; font-size: 0.8rem; font-weight: 600; color: #4c2a9a; background: #f9e4ff; box-shadow: var(--raised); transition: none; }
 .site-nav a:hover, .site-nav a:focus-visible { color: var(--accent); background: #edb2ff; box-shadow: var(--raised); }
 .site-nav a.is-active, .site-nav a:active { background: #acecff; box-shadow: var(--sunken); color: #48229c; }
+.site-nav .language-switch { background: #acecff; white-space: nowrap; }
+.detail-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.game-journal-masthead { flex-wrap: wrap; gap: 10px; }
 
 /* A real title strip on each main window; no non-functional window buttons. */
 .glass-panel, .game-journal {

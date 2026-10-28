@@ -20,6 +20,32 @@ const blogState = {
 const BLOG_PAGE_SIZE = 6;
 const desktopBlogLayout = window.matchMedia("(min-width: 721px)");
 
+function setupLanguageSwitch() {
+    const updateLink = () => {
+        const japanese = document.documentElement.lang === "ja";
+        const page = window.location.pathname.split("/").pop() || "index.html";
+        const sections = pageType === "home" ? [...document.querySelectorAll(".page-section[id]")] : [];
+        const current = sections.sort((a, b) => {
+            const center = (element) => {
+                const rect = element.getBoundingClientRect();
+                return Math.abs((rect.top + rect.bottom) / 2 - window.innerHeight / 2);
+            };
+            return center(a) - center(b);
+        })[0];
+        const hash = current ? `#${current.id}` : window.location.hash;
+        document.querySelectorAll("[data-language-switch]").forEach((link) => {
+            link.href = `${japanese ? "../" : "ja/"}${page}${window.location.search}${hash}`;
+        });
+    };
+    updateLink();
+    window.addEventListener("hashchange", updateLink);
+    document.querySelectorAll("[data-language-switch]").forEach((link) => {
+        link.addEventListener("pointerenter", updateLink);
+        link.addEventListener("focus", updateLink);
+        link.addEventListener("click", updateLink);
+    });
+}
+
 function escapeHtml(value) {
     return String(value)
         .replace(/&/g, "&amp;")
@@ -1140,6 +1166,7 @@ function renderGameDetail() {
     });
 }
 
+setupLanguageSwitch();
 setupProfile();
 setupBackground();
 updateYear();

@@ -21,7 +21,7 @@ const types = {
 http.createServer(async (request, response) => {
     try {
         const pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
-        const target = path.resolve(root, `.${pathname === "/" ? "/index.html" : pathname}`);
+        const target = path.resolve(root, `.${pathname.endsWith("/") ? `${pathname}index.html` : pathname}`);
         const relative = path.relative(root, target);
         if (relative.startsWith("..") || path.isAbsolute(relative) || relative.split(path.sep).some(part => part.startsWith("."))) {
             response.writeHead(403).end("Forbidden");

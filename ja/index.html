@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" href="../src/fonts/fusion-pixel/fusion-pixel-12px-proportional-zh_hans.otf.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- site-meta:start -->
+    <title>うさうさ</title>
+    <meta name="description" content="うさうさの個人ブログ。meta-GGA による量子化学計算の最適化や Unity の技術記事、ゲームレビュー、日々の出来事を綴っています。">
+    <meta name="theme-color" content="#f2d4f2">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="うさうさ">
+    <meta property="og:title" content="うさうさ">
+    <meta property="og:description" content="うさうさの個人ブログ。meta-GGA による量子化学計算の最適化や Unity の技術記事、ゲームレビュー、日々の出来事を綴っています。">
+    <meta name="robots" content="noindex">
+    <meta name="twitter:card" content="summary">
+    <link rel="alternate" type="application/rss+xml" title="うさうさ · 技術ノート" href="./rss.xml">
+    <!-- site-meta:end -->
+    <link rel="stylesheet" href="../style.css?v=20261028081927">
+    <link rel="stylesheet" href="../theme.css?v=20261028081927">
+    <link rel="stylesheet" href="../retro.css?v=20261028081927">
+
+    <link rel="alternate" hreflang="zh-CN" href="../index.html">
+    <link rel="alternate" hreflang="ja" href="./index.html">
+</head>
+<body data-page="home">
+    <div class="site-background" id="site-background" aria-hidden="true" hidden>
+        <video id="site-background-video" muted loop playsinline preload="none" hidden></video>
+    </div>
+    <button class="background-toggle" id="background-toggle" type="button" aria-label="背景アニメーション" aria-pressed="false" hidden>背景を再生</button>
+    <nav class="site-nav" aria-label="サイトナビゲーション">
+        <span class="desktop-brand" aria-hidden="true">うさうさ DESKTOP</span>
+        <a href="#intro" data-scroll>紹介</a>
+        <a href="#blogs" data-scroll>技術記事</a>
+        <a href="#games" data-scroll>ゲームレビュー</a>
+        <a href="#album" data-scroll>日記</a>
+        <a href="#resume" data-scroll>プロフィール</a>
+        <a href="#contact" data-scroll>連絡先</a>
+        <a class="language-switch" href="../index.html" lang="zh-CN" hreflang="zh-CN" data-language-switch>中文</a>
+    </nav>
+
+    <main class="page-stack">
+        <section class="page-section intro-section" id="intro">
+            <div class="container">
+                <div class="glass-panel hero-panel reveal">
+                    <div class="retro-titlebar"><span>profile.exe — うさうさ</span><span aria-hidden="true">PERSONAL WEB</span></div>
+                    <div class="avatar-column">
+                        <div class="avatar-shell">
+                            <img src="../src/pictures/usausa-v2.png" alt="うさうさのアバター" data-profile-avatar>
+                        </div>
+                    </div>
+
+                    <div class="hero-copy">
+                        <p class="section-kicker">SCIENCE &amp; CREATION</p>
+                        <h1 data-profile-title>うさうさ</h1>
+                        <p class="hero-lead" data-profile-focus>meta-GGA 量子化学計算の最適化 / Unity エンジン</p>
+                        <p class="hero-description" data-profile-bio hidden></p>
+
+                        <div class="intro-lines">
+                            <p><span>focus</span><span class="intro-value" data-profile-focus>meta-GGA 量子化学計算の最適化 / Unity エンジン</span></p>
+                            <p><span>life</span><span class="intro-value" data-profile-life>ゲーム / BJD / ドライブ旅行 / ストリートファイター6</span></p>
+                            <p><span>notes</span><span class="intro-value">技術記事 / ゲームレビュー / 日記</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section" id="blogs">
+            <div class="container blog-layout">
+                <div class="glass-panel content-panel reveal">
+                    <div class="retro-titlebar"><span>notebook.exe — 技術記事</span><span aria-hidden="true">NOTES</span></div>
+                    <div class="panel-head">
+                        <div>
+                            <p class="panel-kicker">TECHNICAL WRITING</p>
+                            <h2>技術記事</h2>
+                        </div>
+                        <span class="panel-note">Quantum Chemistry / Unity</span>
+                    </div>
+                    <div class="blog-tools" aria-label="記事の絞り込みと検索">
+                        <label class="search-field">
+                            <span>記事を検索</span>
+                            <input id="blog-search" type="search" placeholder="タイトル・タグ・概要を検索…" autocomplete="off">
+                        </label>
+                        <div class="category-filter" id="blog-category-filter" aria-label="記事のカテゴリー"></div>
+                    </div>
+                    <div class="panel-scroll blog-scroll" id="blogs-list"></div>
+                    <nav class="blog-pagination" id="blog-pagination" aria-label="技術記事のページ切り替え" hidden></nav>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section games-section" id="games" aria-labelledby="games-title">
+            <div class="container">
+                <div class="game-journal reveal">
+                    <div class="retro-titlebar"><span>games.exe — ゲームレビュー</span><span aria-hidden="true">PLAYER LOG</span></div>
+                    <div class="game-journal-masthead">
+                        <span>GAME NOTES</span>
+                        <span>遊んだあとに、感想を少し</span>
+                    </div>
+                    <header class="game-journal-header">
+                        <div>
+                            <h2 id="games-title">ゲームレビュー<span aria-hidden="true">.</span></h2>
+                            <p>ゲームの好きなところ、気になるところ、そしてクリア後も心に残ること。</p>
+                        </div>
+                        <div class="game-journal-total" aria-label="レビュー数">
+                            <strong id="game-review-count">00</strong>
+                            <span>件のレビュー / 少しずつ記録</span>
+                        </div>
+                    </header>
+                    <div class="game-ledger-head" aria-hidden="true">
+                        <span>ゲーム / プレイ記録</span><span>レビュー概要</span><span>評価</span>
+                    </div>
+                    <div class="game-records">
+                        <div class="game-review-empty" id="game-review-empty">
+                            <svg viewBox="0 0 80 56" fill="none" aria-hidden="true">
+                                <path d="M23 12h34c8 0 12 7 14 15l3 14c2 9-8 13-14 6L49 37H31L20 47C14 54 4 50 6 41l3-14c2-8 6-15 14-15Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M20 22v14m-7-7h14M35 12l-3-6h16l-3 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="56" cy="25" r="2.5" fill="currentColor"/><circle cx="64" cy="32" r="2.5" fill="currentColor"/>
+                            </svg>
+                            <p class="game-empty-kicker">NO NOTES YET</p>
+                            <h3>じっくり遊んで、ゆっくり綴る。</h3>
+                            <p>レビューはまだありません。次のゲームの思い出をここに。</p>
+                        </div>
+                        <ol class="game-review-list" id="game-review-list" aria-label="ゲームレビュー一覧" hidden></ol>
+                    </div>
+                    <footer class="game-journal-footer"><span>ひとつひとつの体験を、急いで結論にしなくても。</span><span aria-hidden="true">SAVE &amp; CONTINUE ↗</span></footer>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section" id="album">
+            <div class="container split-layout album-layout">
+                <div class="glass-panel section-panel reveal">
+                    <div class="retro-titlebar"><span>日常の記録</span><span aria-hidden="true">LIFE</span></div>
+                    <p class="section-kicker">PHOTO ESSAYS</p>
+                    <h2>日記</h2>
+                    <p class="section-copy">日常のひとこまを記録しながら、技術以外の暮らしにも少し余白を。</p>
+                </div>
+
+                <div class="glass-panel content-panel reveal">
+                    <div class="retro-titlebar"><span>photos.exe — 日常のひとこま</span><span aria-hidden="true">ALBUM</span></div>
+                    <div class="panel-head">
+                        <div>
+                            <p class="panel-kicker">Life Frames</p>
+                            <h3>日常のひとこま</h3>
+                        </div>
+                        <span class="panel-note">カードをクリックして写真日記を読む</span>
+                    </div>
+                    <div class="panel-scroll album-scroll">
+                        <div class="album-masonry" id="album-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section" id="resume" aria-labelledby="resume-title">
+            <div class="container">
+                <div class="glass-panel resume-panel reveal">
+                    <div class="retro-titlebar"><span>resume.txt — プロフィール</span><span aria-hidden="true">ABOUT ME</span></div>
+                    <div class="resume-title-row">
+                        <div>
+                            <p class="section-kicker">PERSONAL RESUME</p>
+                            <h2 id="resume-title">プロフィール</h2>
+                        </div>
+                        <span class="direction-badge">研究 · エンジニアリング · ゲーム開発</span>
+                    </div>
+                    <div class="cv-grid" aria-label="プロフィールの4つの項目">
+                        <section class="cv-section" aria-labelledby="cv-research">
+                            <h3 id="cv-research">研究分野</h3>
+                            <ul class="cv-summary">
+                                <li>meta-GGA と量子化学計算：SCAN・r²SCAN の実装と数値検証。</li>
+                                <li>CUDA / GPU による高性能計算、行列演算とキャッシュの最適化。</li>
+                                <li>Unity / C# によるゲーム開発とインタラクティブアプリケーション。</li>
+                            </ul>
+                        </section>
+                        <section class="cv-section" aria-labelledby="cv-experience">
+                            <h3 id="cv-experience">研究・開発経験</h3>
+                            <ul class="cv-summary">
+                                <li>2025.10 — 現在｜GANSU：meta-GGA の実装・検証、GPU 上の行列演算化、空間グループ化とキャッシュ最適化に参加。</li>
+                                <li>2021.10 — 2022.06｜NEEP：C++ / Python によるシンボリック回帰アルゴリズムの再現・最適化とデータセットでのテスト。</li>
+                            </ul>
+                        </section>
+                        <section class="cv-section" aria-labelledby="cv-development">
+                            <h3 id="cv-development">インターン・アプリ開発</h3>
+                            <ul class="cv-summary">
+                                <li>2026｜コーエーテクモのインターンシップに参加。</li>
+                                <li>2023.05 — 2023.07｜BitSummit『激唱！銀河演説』のメインプログラマー。Unity 製2人用リズムゲームのプログラム開発と統合を担当。</li>
+                                <li>C# と Timeline を用いて譜面とノーツのタイミング制御を実装。</li>
+                            </ul>
+                        </section>
+                        <section class="cv-section" aria-labelledby="cv-achievements">
+                            <h3 id="cv-achievements">実績・受賞歴</h3>
+                            <ul class="cv-summary">
+                                <li>藍橋杯・団体プログラミング天梯賽で二等賞／三等賞、ICPC で三等賞、RoboCom 選抜大会で優秀賞を受賞。</li>
+                                <li>日本語：日本語能力試験 N1 の認定書を保有。英語：TOEFL・TOEIC のスコア証明書を保有。</li>
+                            </ul>
+                            <details class="cv-award-details">
+                                <summary>受賞歴をすべて見る</summary>
+                                <ul class="cv-awards">
+                                <li><time datetime="2022-05">2022.05</time><span>藍橋杯コンテスト · 二等賞</span></li>
+                                <li><time datetime="2022-05">2022.05</time><span>ICPC 国際大学対抗プログラミングコンテスト · 三等賞</span></li>
+                                <li><time datetime="2022-05">2022.05</time><span>中国大学生コンピュータコンテスト · 団体プログラミング天梯賽 · 三等賞</span></li>
+                                <li><time datetime="2021-12">2021.12</time><span>RoboCom ロボット開発者コンテスト選抜大会 · 優秀賞</span></li>
+                                <li><time datetime="2021-05">2021.05</time><span>藍橋杯コンテスト · 三等賞</span></li>
+                                <li><time datetime="2021-05">2021.05</time><span>中国大学生コンピュータコンテスト · 団体プログラミング天梯賽 · 二等賞</span></li>
+                                </ul>
+                            </details>
+                        </section>
+                    </div>
+                    <div class="resume-actions">
+                        <a class="ghost-button" href="#blogs" data-scroll>技術ノートを読む <span aria-hidden="true">↗</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section contact-section" id="contact">
+            <div class="container">
+                <div class="glass-panel contact-panel reveal">
+                    <div class="retro-titlebar"><span>contacts.ini — お問い合わせ</span><span aria-hidden="true">ADDRESS BOOK</span></div>
+                    <div class="contact-copy">
+                        <p class="section-kicker">KEEP IN TOUCH</p>
+                        <h2>お問い合わせ</h2>
+                        <p class="section-copy">量子化学や Unity、そのほか面白いアイデアについて。</p>
+                    </div>
+                    <div class="contact-grid">
+                        <div class="contact-card" data-contact="email"><span class="info-label">Email</span><strong>未記入</strong></div>
+                        <div class="contact-card" data-contact="github"><span class="info-label">GitHub</span><strong>未記入</strong></div>
+                        <div class="contact-card" data-contact="wechat"><span class="info-label">WeChat</span><strong>未記入</strong></div>
+                    </div>
+                    <p class="contact-footnote">© <span id="year"></span> <span data-profile-footer>うさうさ</span> · Notes, ideas &amp; little moments.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-shell" id="album-modal" hidden>
+        <button class="modal-backdrop" type="button" aria-label="写真日記を閉じる" data-close-album></button>
+        <button class="modal-nav modal-nav-prev" type="button" aria-label="前の日記を見る" data-album-nav="prev">◀</button>
+        <button class="modal-nav modal-nav-next" type="button" aria-label="次の日記を見る" data-album-nav="next">▶</button>
+        <div class="glass-panel modal-window" role="dialog" aria-modal="true" aria-labelledby="album-modal-title">
+            <div class="retro-titlebar"><span>Photo Viewer — 日記</span></div>
+            <button class="modal-close" type="button" aria-label="閉じる" data-close-album>×</button>
+            <div class="modal-media">
+                <img id="album-modal-image" alt="">
+                <button class="album-image-nav album-image-prev" type="button" aria-label="前の画像" data-album-image-nav="prev" hidden>◀</button>
+                <button class="album-image-nav album-image-next" type="button" aria-label="次の画像" data-album-image-nav="next" hidden>▶</button>
+                <span class="album-image-counter" id="album-image-counter" role="status" aria-live="polite" aria-atomic="true" hidden></span>
+            </div>
+            <div class="modal-content">
+                <p class="detail-date" id="album-modal-date"></p>
+                <h3 id="album-modal-title"></h3>
+                <div class="pill-row detail-pills" id="album-modal-tags"></div>
+                <article class="markdown-body" id="album-modal-markdown"></article>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-fullscreen" id="image-fullscreen" hidden>
+        <button class="image-fullscreen-backdrop" type="button" aria-label="画像の全画面表示を閉じる" data-close-fullscreen-image></button>
+        <button class="image-fullscreen-close" type="button" aria-label="画像の全画面表示を閉じる" data-close-fullscreen-image>×</button>
+        <img id="image-fullscreen-img" alt="">
+    </div>
+
+    <script src="site-config.js?v=20261028081927"></script>
+    <script src="content-manifest.js?v=20261028081927"></script>
+    <script src="script.js?v=20261028081927"></script>
+</body>
+</html>
